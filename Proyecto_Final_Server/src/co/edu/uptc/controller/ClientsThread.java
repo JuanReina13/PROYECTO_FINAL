@@ -29,6 +29,7 @@ public class ClientsThread extends Thread {
 
             while (running) {
                 String command = dataInput.readUTF();
+                System.out.println("📩 Mensaje recibido: " + command);
 
                 switch (command) {
                     case "NEW_ORDER":
