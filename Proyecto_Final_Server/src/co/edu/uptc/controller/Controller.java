@@ -9,7 +9,7 @@ import co.edu.uptc.model.RestaurantManager;
 
 public class Controller {
 
-    private final int PORT  = 49045;// Toca pedirlo por View
+    private final int PORT  = 49045;
     private ServerSocket serverSocket;
     private RestaurantManager restaurantManager;
 

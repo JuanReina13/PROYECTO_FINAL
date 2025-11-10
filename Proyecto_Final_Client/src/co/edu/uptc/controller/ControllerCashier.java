@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
 
-public class Controller {
+public class ControllerCashier {
 
     private static final String HOST = "localhost";
     private static final int PORT = 49045;
@@ -19,7 +19,7 @@ public class Controller {
     private DataInputStream dataInput;
     private Gson gson = new Gson();
 
-    public Controller() {
+    public ControllerCashier() {
         try (Socket socket = new Socket(HOST, PORT)) {
             dataOutput = new DataOutputStream(socket.getOutputStream());
             dataInput = new DataInputStream(socket.getInputStream());

@@ -1,5 +1,6 @@
 package co.edu.uptc.model;
 
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +10,7 @@ public class Station {
     private String name;
     private List<ProductCategory> assignedCategories;
     private List<Order> orders;
-
+    private DataOutputStream clientOutput;
 
     public Station(String name, List<ProductCategory> assignedCategories) {
         this.name = name;
@@ -58,4 +59,11 @@ public class Station {
         this.orders = orders;
     }
 
+    public DataOutputStream getClientOutput() {
+        return clientOutput;
+    }
+
+    public void setClientOutput(DataOutputStream clientOutput) {
+        this.clientOutput = clientOutput;
+    }
 }

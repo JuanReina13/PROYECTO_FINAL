@@ -1,7 +1,6 @@
 package co.edu.uptc.model;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ public class Order {
     private String idOrder;
     private String table;
     private List<Product> products;
-    private List<String> categoriesInvolved;
 
     public Order(String table, List<Product> products) {
         this.idOrder = createIdOrder();
@@ -49,27 +47,4 @@ public class Order {
         this.products = products;
     }
 
-    public Boolean getIsReady() {
-        return isReady;
-    }
-
-    public void setIsReady(Boolean isReady) {
-        this.isReady = isReady;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public List<ProductCategory> getCategoriesInvolved() {
-        return categoriesInvolved;
-    }
-
-    public void setCategoriesInvolved(List<ProductCategory> categoriesInvolved) {
-        this.categoriesInvolved = categoriesInvolved;
-    }
 }

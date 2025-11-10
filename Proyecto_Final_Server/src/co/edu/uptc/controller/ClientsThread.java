@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 
 import co.edu.uptc.model.Order;
 import co.edu.uptc.model.RestaurantManager;
+import co.edu.uptc.model.Station;
 
 public class ClientsThread extends Thread {
 
@@ -47,6 +48,16 @@ public class ClientsThread extends Thread {
                         dataOutput.writeUTF(historyJson);
                         break;
 
+                    case "REGISTER_STATION":
+                        String stationName = dataInput.readUTF();
+                        Station station = restaurantManager.findStationByName(stationName);
+                        if (station != null) {
+                            station.setClientOutput(dataOutput);
+                            System.out.println("📡 Estación registrada: " + stationName);
+                        } else {
+                            System.out.println("⚠️ Estación no encontrada: " + stationName);
+                        }
+                        break;
                     case "EXIT":
                         running = false;
                         break;
@@ -66,4 +77,3 @@ public class ClientsThread extends Thread {
         }
     }
 }
-

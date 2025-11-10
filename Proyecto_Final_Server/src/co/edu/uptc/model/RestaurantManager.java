@@ -35,15 +35,15 @@ public class RestaurantManager {
     private void configureStations() {
 
         Station mainKitchen = new Station(
-                "Cocina Principal",
+                "MainKitchen",
                 List.of(ProductCategory.HAMBURGER, ProductCategory.SANDWICH, ProductCategory.HOT_DOG,
                         ProductCategory.NACHOS, ProductCategory.QUESADILLA, ProductCategory.SALAD));
 
         Station pizzas = new Station(
-                "Zona de Pizzas",
+                "Pizza",
                 List.of(ProductCategory.PIZZA));
 
-        Station expeditor = new Station("Zona de Meseros",
+        Station expeditor = new Station("Expeditor",
                 List.of(ProductCategory.HAMBURGER, ProductCategory.SANDWICH, ProductCategory.HOT_DOG,
                         ProductCategory.NACHOS, ProductCategory.QUESADILLA, ProductCategory.SALAD,
                         ProductCategory.PIZZA));
@@ -51,6 +51,15 @@ public class RestaurantManager {
         stations.add(mainKitchen);
         stations.add(pizzas);
         stations.add(expeditor);
+    }
+
+    public Station findStationByName(String name) {
+        for (Station s : stations) {
+            if (s.getName().equalsIgnoreCase(name)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     public void addOrder(Order order) {
