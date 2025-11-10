@@ -3,17 +3,17 @@ package co.edu.uptc.model;
 public class Product {
 
     private String name;
-    private ProductCategory category;
+    private String category;
     private double price;
     private int quantity;
 
-    public Product(String name, ProductCategory category, double price, int quantity) {
+    public Product(String name, String category, double price, int quantity) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -22,11 +22,11 @@ public class Product {
         this.name = name;
     }
 
-    public ProductCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(ProductCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

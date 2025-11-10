@@ -40,7 +40,6 @@ public class ClientsThread extends Thread {
                         Order order = gson.fromJson(orderJson, Order.class);
                         restaurantManager.addOrder(order);
                         dataOutput.writeUTF("Orden recibida correctamente");
-                        
                         break;
 
                     case "GET_HISTORY":

@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
-import co.edu.uptc.model.ProductCategory;
 
 public class Controller {
 
@@ -25,9 +24,9 @@ public class Controller {
             dataOutput = new DataOutputStream(socket.getOutputStream());
             dataInput = new DataInputStream(socket.getInputStream());
             sendNewOrder(new Order("Paw Paw", List.of(
-                    new co.edu.uptc.model.Product("bbq chiken gouda onion Pizza", ProductCategory.PIZZA, 15.99, 1),
-                    new co.edu.uptc.model.Product("Chef Salad", ProductCategory.SALAD, 7.99, 1),
-                    new co.edu.uptc.model.Product("chicago dog", ProductCategory.HOT_DOG, 8.49, 2)
+                    new co.edu.uptc.model.Product("oniichan Pizza", "PIZZA", 15.99, 1),
+                    new co.edu.uptc.model.Product("cobb Salad", "SALAD", 7.99, 1),
+                    new co.edu.uptc.model.Product("classic dog", "HOT_DOG", 8.49, 2)
                     )));
                     System.out.println("Order created and sent to server.");
             requestHistory();

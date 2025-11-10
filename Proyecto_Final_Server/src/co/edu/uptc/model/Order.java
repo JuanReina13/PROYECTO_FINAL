@@ -40,16 +40,6 @@ public class Order {
         }
     }
 
-    public String toString() {
-        return "Order{" +
-                "id=" + idOrder + "\n" +
-                ", table='" + table + "\n" +
-                ", products=" + products + "\n" +
-                ", isReady=" + isReady + "\n" +
-                ", time=" + time +
-                '}';
-    }
-
     public String getIdOrder() {
         return idOrder;
     }
