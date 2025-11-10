@@ -1,5 +1,6 @@
 package co.edu.uptc.model;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -43,10 +44,7 @@ public class RestaurantManager {
                 "Pizza",
                 List.of(ProductCategory.PIZZA));
 
-        Station expeditor = new Station("Expeditor",
-                List.of(ProductCategory.HAMBURGER, ProductCategory.SANDWICH, ProductCategory.HOT_DOG,
-                        ProductCategory.NACHOS, ProductCategory.QUESADILLA, ProductCategory.SALAD,
-                        ProductCategory.PIZZA));
+        Station expeditor = new Station("Expeditor", List.of(ProductCategory.values()));
 
         stations.add(mainKitchen);
         stations.add(pizzas);
@@ -63,8 +61,8 @@ public class RestaurantManager {
     }
 
     public void addOrder(Order order) {
-       Queue<Order> currentOrders = loadOrdersFromFile();
-       currentOrders.add(order);
+        Queue<Order> currentOrders = loadOrdersFromFile();
+        currentOrders.add(order);
         orderQueue = currentOrders;
         shareOrder(order);
         saveOrdersToFile();
@@ -101,15 +99,30 @@ public class RestaurantManager {
             for (ProductCategory category : categories) {
                 if (station.getAssignedCategories().contains(category)) {
                     station.finishOrder(order);
+                    sendFinishMessageStation(order, station);
+                    break;
                 }
             }
         }
     }
 
+    private void sendFinishMessageStation(Order order, Station station) {
+        try {
+            DataOutputStream output = station.getClientOutput();
+            if (output != null) {
+                output.writeUTF("ORDER_FINISHED");
+                output.writeUTF(order.getIdOrder());
+                output.flush();
+            }
+        } catch (IOException e) {
+            System.out.println("⚠️ Error notificando finalización a " + station.getName() + ": " + e.getMessage());
+        }
+
+    }
+
     public List<Order> getOrders() {
         return new ArrayList<>(recordStack);
     }
-
 
     public String getOrdersJson() {
         return gson.toJson(orderQueue);
@@ -123,20 +136,21 @@ public class RestaurantManager {
         }
     }
 
-   private Queue<Order> loadOrdersFromFile() {
-    File file = new File(FILE_PATH);
-    if (!file.exists()) {
-        return new LinkedList<>();
-    }
+    private Queue<Order> loadOrdersFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return new LinkedList<>();
+        }
 
-    try (Reader reader = new FileReader(FILE_PATH)) {
-        Type queueType = new TypeToken<Queue<Order>>() {}.getType();
-        Queue<Order> loaded = gson.fromJson(reader, queueType);
-        return (loaded != null) ? loaded : new LinkedList<>();
-    } catch (IOException e) {
-        System.out.println("Error leyendo el archivo JSON: " + e.getMessage());
-        return new LinkedList<>();
+        try (Reader reader = new FileReader(FILE_PATH)) {
+            Type queueType = new TypeToken<Queue<Order>>() {
+            }.getType();
+            Queue<Order> loaded = gson.fromJson(reader, queueType);
+            return (loaded != null) ? loaded : new LinkedList<>();
+        } catch (IOException e) {
+            System.out.println("Error leyendo el archivo JSON: " + e.getMessage());
+            return new LinkedList<>();
+        }
     }
-}
 
 }

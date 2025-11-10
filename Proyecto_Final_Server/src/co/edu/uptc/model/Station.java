@@ -1,9 +1,12 @@
 package co.edu.uptc.model;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 public class Station {
 
@@ -11,6 +14,7 @@ public class Station {
     private List<ProductCategory> assignedCategories;
     private List<Order> orders;
     private DataOutputStream clientOutput;
+    private Gson gson = new Gson();
 
     public Station(String name, List<ProductCategory> assignedCategories) {
         this.name = name;
@@ -20,6 +24,22 @@ public class Station {
 
     public void addOrder(Order order) {
         orders.add(order);
+        sendOrderToClient(order);
+    }
+
+    private void sendOrderToClient(Order order) {
+        if (clientOutput != null) {
+            try {
+                clientOutput.writeUTF("NEW_ORDER");
+                clientOutput.writeUTF(gson.toJson(order));
+                clientOutput.flush();
+                System.out.println("Orden enviada a estación: " + name);
+            } catch (IOException e) {
+                System.out.println("Error enviando orden a " + name + ": " + e.getMessage());
+            }
+        } else {
+            System.out.println("Estación " + name + " sin cliente conectado");
+        }
     }
 
     public void finishOrder(Order order) {

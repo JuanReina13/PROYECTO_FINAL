@@ -48,16 +48,20 @@ public class ClientsThread extends Thread {
                         dataOutput.writeUTF(historyJson);
                         break;
 
+                    case "FINISH_ORDER":
+                        String finishOrderJson = dataInput.readUTF();
+                        Order finishOrder = gson.fromJson(finishOrderJson, Order.class);
+                        restaurantManager.finishOrder(finishOrder);
+
+                        break;
+
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        if (station != null) {
-                            station.setClientOutput(dataOutput);
-                            System.out.println("📡 Estación registrada: " + stationName);
-                        } else {
-                            System.out.println("⚠️ Estación no encontrada: " + stationName);
-                        }
+                        station.setClientOutput(dataOutput);
+
                         break;
+
                     case "EXIT":
                         running = false;
                         break;

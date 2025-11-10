@@ -2,6 +2,7 @@ package co.edu.uptc.controller;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 import com.google.gson.Gson;
 
@@ -38,10 +39,31 @@ public class ControllerStation {
                 try {
                     while (running) {
                         String command = input.readUTF();
-                        if (command.equals("NEW_ORDER")) {
-                            String json = input.readUTF();
-                            Order order = gson.fromJson(json, Order.class);
-                            System.out.println("📥 Nueva orden recibida en " + stationName + ": " + order.getIdOrder());
+                        switch (command) {
+                            case "NEW_ORDER":
+                                String json = input.readUTF();
+                                Order order = gson.fromJson(json, Order.class);
+                                System.out.println(
+                                        "📥 Nueva orden recibida en " + stationName + ": " + order.getIdOrder());
+                                break;
+
+                            case "ORDER_FINISHED":
+                                String finishedOrderJson = input.readUTF();
+                                Order finishedOrder = gson.fromJson(finishedOrderJson, Order.class);
+
+                                break;
+
+                            case "HISTORY":
+                                String historyJson = input.readUTF();
+                                Order[] orders = gson.fromJson(historyJson, Order[].class);
+
+                                break;
+                            case "EXIT":
+                                running = false;
+                                stop();
+                                break;
+                            default:
+                                break;
                         }
                     }
                 } catch (Exception e) {
@@ -54,11 +76,22 @@ public class ControllerStation {
         }
     }
 
+    public void sendFinishOrder(Order order) {
+        try {
+            output.writeUTF("FINISH_ORDER");
+            output.writeUTF(gson.toJson(order));
+            output.flush();
+            System.out.println("✅ Solicitud de finalización enviada: " + order.getIdOrder());
+        } catch (IOException e) {
+            System.out.println("Error al enviar FINISH_ORDER: " + e.getMessage());
+        }
+    }
+
     public void stop() {
         try {
             running = false;
             socket.close();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }
-
