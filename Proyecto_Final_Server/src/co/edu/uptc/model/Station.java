@@ -27,7 +27,7 @@ public class Station {
         Order currentOrder;
         while (iterator.hasNext() && condition){
             currentOrder = iterator.next();
-            if (currentOrder.getIdOrden().equalsIgnoreCase(order.getIdOrden())){
+            if (currentOrder.getIdOrder().equalsIgnoreCase(order.getIdOrder())){
                 iterator.remove();
                 condition = false;
             }

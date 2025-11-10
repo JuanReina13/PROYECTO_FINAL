@@ -1,13 +1,26 @@
 package co.edu.uptc.model;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 public class RestaurantManager {
 
+    private final String FILE_PATH = "data/orders.json";
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<Station> stations;
     private Queue<Order> orderQueue;
     private Deque<Order> recordStack;
@@ -41,8 +54,11 @@ public class RestaurantManager {
     }
 
     public void addOrder(Order order) {
-        orderQueue.add(order);
+       Queue<Order> currentOrders = loadOrdersFromFile();
+       currentOrders.add(order);
+        orderQueue = currentOrders;
         shareOrder(order);
+        saveOrdersToFile();
     }
 
     private void shareOrder(Order order) {
@@ -62,7 +78,7 @@ public class RestaurantManager {
         boolean condition = false;
         while (iterator.hasNext() && condition) {
             Order o = iterator.next();
-            if (o.getIdOrden().equalsIgnoreCase(order.getIdOrden())) {
+            if (o.getIdOrder().equalsIgnoreCase(order.getIdOrder())) {
                 iterator.remove();
                 notifyStations(order, order.getCategoriesInvolved());
                 recordStack.push(o);
@@ -80,5 +96,38 @@ public class RestaurantManager {
             }
         }
     }
+
+    public List<Order> getOrders() {
+        return new ArrayList<>(recordStack);
+    }
+
+
+    public String getOrdersJson() {
+        return gson.toJson(orderQueue);
+    }
+
+    private void saveOrdersToFile() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            gson.toJson(orderQueue, writer);
+        } catch (IOException e) {
+            System.out.println("Error guardando el archivo JSON: " + e.getMessage());
+        }
+    }
+
+   private Queue<Order> loadOrdersFromFile() {
+    File file = new File(FILE_PATH);
+    if (!file.exists()) {
+        return new LinkedList<>();
+    }
+
+    try (Reader reader = new FileReader(FILE_PATH)) {
+        Type queueType = new TypeToken<Queue<Order>>() {}.getType();
+        Queue<Order> loaded = gson.fromJson(reader, queueType);
+        return (loaded != null) ? loaded : new LinkedList<>();
+    } catch (IOException e) {
+        System.out.println("Error leyendo el archivo JSON: " + e.getMessage());
+        return new LinkedList<>();
+    }
+}
 
 }

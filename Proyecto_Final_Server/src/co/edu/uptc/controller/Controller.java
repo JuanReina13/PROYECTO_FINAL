@@ -16,9 +16,11 @@ public class Controller {
     public Controller() throws IOException {
         restaurantManager = new RestaurantManager();
         serverSocket = new ServerSocket(PORT);
+        System.out.println("Servidor iniciado en el puerto " + PORT);
 
         while (true) {
             Socket socket = serverSocket.accept();
+            System.out.println("Cliente conectado desde: " + socket.getInetAddress());
             new ClientsThread(socket, restaurantManager).start();
         }
     }

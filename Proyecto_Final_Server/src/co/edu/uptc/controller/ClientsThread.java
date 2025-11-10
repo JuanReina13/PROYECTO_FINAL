@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
+import co.edu.uptc.model.Order;
 import co.edu.uptc.model.RestaurantManager;
 
 public class ClientsThread extends Thread {
@@ -12,6 +15,7 @@ public class ClientsThread extends Thread {
     private DataOutputStream dataOutput;
     private DataInputStream dataInput;
     private RestaurantManager restaurantManager;
+    private Gson gson = new Gson();
 
     public ClientsThread(Socket socket, RestaurantManager restaurantManager) {
         this.socket = socket;
@@ -29,20 +33,19 @@ public class ClientsThread extends Thread {
 
             while (running) {
                 String command = dataInput.readUTF();
-                System.out.println("📩 Mensaje recibido: " + command);
 
                 switch (command) {
                     case "NEW_ORDER":
-                        // Aquí podrías leer un objeto o cadena JSON con los datos
-                        // y crear la orden en el modelo
-                        break;
-
-                    case "FINISH_ORDER":
-                        // Leer ID de la orden a finalizar
+                        String orderJson = dataInput.readUTF();
+                        Order order = gson.fromJson(orderJson, Order.class);
+                        restaurantManager.addOrder(order);
+                        dataOutput.writeUTF("Orden recibida correctamente");
+                        
                         break;
 
                     case "GET_HISTORY":
-                        // Enviar historial al cliente
+                        String historyJson = restaurantManager.getOrdersJson();
+                        dataOutput.writeUTF(historyJson);
                         break;
 
                     case "EXIT":

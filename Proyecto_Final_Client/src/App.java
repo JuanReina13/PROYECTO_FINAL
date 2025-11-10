@@ -1,9 +1,10 @@
-import co.edu.uptc.controller.ControllerClient;
+import co.edu.uptc.controller.Controller;
 import co.edu.uptc.view.MainFrame;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ControllerClient controller = new ControllerClient();  
+        Controller controller = new Controller();  
         MainFrame main = new MainFrame();
+        main.setVisible(true); 
     }
 }
