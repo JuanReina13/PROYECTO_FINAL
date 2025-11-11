@@ -1,4 +1,4 @@
-package co.edu.uptc.view.MainPanels;
+package co.edu.uptc.view.mainPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,39 +34,37 @@ public class MainPanel extends JPanel {
     private JButton btnKitchen;
     private JButton btnExpeditor;
 
+
     public MainPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
         setBackground(new Color(245, 247, 250));
-
-        JPanel panelBotones = new JPanel(new GridLayout(1, 4, 20, 10));
-        panelBotones.setBackground(new Color(245, 247, 250));
-        panelBotones.setBorder(BorderFactory.createEmptyBorder(40, 40, 10, 40));
-
-        btnCashier = crearBotonConImagen("resources/Main_Frame_Images/cash_register.png", "Caja");
-        btnPizza = crearBotonConImagen("resources/Main_Frame_Images/pizza.png", "Pizzas");
-        btnKitchen = crearBotonConImagen("resources/Main_Frame_Images/fast_food.png", "Cocina Principal");
-        btnExpeditor = crearBotonConImagen("resources/Main_Frame_Images/waiter.png", "Expedidor");
-
-        panelBotones.add(btnCashier);
-        panelBotones.add(btnPizza);
-        panelBotones.add(btnKitchen);
-        panelBotones.add(btnExpeditor);
+        add(createButtonsPanel(), BorderLayout.CENTER);
+        add(createSuperiorLabel("Seleccione la estación a la que desea ingresar"), BorderLayout.NORTH);
         addActionListenersToButtons();
-
-        JLabel textoInferior = new JLabel("Seleccione la estación a la que desea ingresar", SwingConstants.CENTER);
-        textoInferior.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        textoInferior.setForeground(new Color(80, 80, 80));
-        textoInferior.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-        add(panelBotones, BorderLayout.CENTER);
-        add(textoInferior, BorderLayout.SOUTH);
     }
 
-    private void addActionListenersToButtons() {
-        btnCashier.addActionListener(e -> openCashier());
-        btnPizza.addActionListener(e -> openStation("Pizza"));
-        btnKitchen.addActionListener(e -> openStation("MainKitchen"));
-        btnExpeditor.addActionListener(e -> openStation("Expeditor"));
+    private JPanel createButtonsPanel(){
+        JPanel panel = new JPanel(new GridLayout(1, 4, 20, 10));
+        panel.setBackground(new Color(245, 247, 250));
+        panel.setBorder(BorderFactory.createEmptyBorder(40, 40, 10, 40));
+        btnCashier = createButtonWithImage("resources/Main_Frame_Images/cash_register.png", "Caja");
+        btnPizza = createButtonWithImage("resources/Main_Frame_Images/pizza.png", "Pizzas");
+        btnKitchen = createButtonWithImage("resources/Main_Frame_Images/fast_food.png", "Cocina Principal");
+        btnExpeditor = createButtonWithImage("resources/Main_Frame_Images/waiter.png", "Expedidor");
+        panel.add(btnCashier);
+        panel.add(btnPizza);
+        panel.add(btnKitchen);
+        panel.add(btnExpeditor);
+        return panel;
+    }
+
+    private JLabel createSuperiorLabel(String text) {
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        label.setForeground(new Color(80, 80, 80));
+        label.setBorder(BorderFactory.createEmptyBorder(40, 10, 0, 10));
+        return label;
     }
 
     private void openCashier() {
@@ -83,10 +81,17 @@ public class MainPanel extends JPanel {
         mainFrame.showPanel(viewStation);
     }
 
-    private JButton crearBotonConImagen(String rutaImagen, String texto) {
+    private void addActionListenersToButtons() {
+        btnCashier.addActionListener(e -> openCashier());
+        btnPizza.addActionListener(e -> openStation("Pizza"));
+        btnKitchen.addActionListener(e -> openStation("MainKitchen"));
+        btnExpeditor.addActionListener(e -> openStation("Expeditor"));
+    }
+
+    private JButton createButtonWithImage(String ImagePath, String text) {
         Image img;
         try {
-            img = ImageIO.read(new File(rutaImagen));
+            img = ImageIO.read(new File(ImagePath));
         } catch (Exception e) {
             img = new BufferedImage(80, 80, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = ((BufferedImage) img).createGraphics();
@@ -94,10 +99,8 @@ public class MainPanel extends JPanel {
             g.fillRect(0, 0, 80, 80);
             g.dispose();
         }
-
         Image imgEscalada = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-
-        JButton button = new JButton(texto, new ImageIcon(imgEscalada));
+        JButton button = new JButton(text, new ImageIcon(imgEscalada));
         button.setHorizontalTextPosition(SwingConstants.CENTER);
         button.setVerticalTextPosition(SwingConstants.BOTTOM);
         button.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -107,7 +110,6 @@ public class MainPanel extends JPanel {
         button.setBorderPainted(false);
         button.setBackground(new Color(245, 247, 250));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -123,7 +125,6 @@ public class MainPanel extends JPanel {
                 button.setOpaque(true);
             }
         });
-
         return button;
     }
 
