@@ -3,7 +3,7 @@ package co.edu.uptc.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import co.edu.uptc.view.mainPanels.MainPanel;
+import co.edu.uptc.view.MainPanels.MainPanel;
 
 public class MainFrame extends JFrame {
 
