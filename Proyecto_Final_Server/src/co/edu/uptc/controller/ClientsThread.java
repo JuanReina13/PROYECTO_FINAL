@@ -60,6 +60,7 @@ public class ClientsThread extends Thread {
                         Station station = restaurantManager.findStationByName(stationName);
                         station.setClientOutput(dataOutput);
 
+                        System.out.println("Estación registrada: " + stationName);
                         break;
 
                     case "EXIT":
