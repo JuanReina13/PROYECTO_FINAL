@@ -21,18 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class MainPanel extends JPanel {
-    
 
     public MainPanel() {
         setLayout(new BorderLayout());
-        setBackground(new Color(245, 247, 250)); // Fondo claro moderno
+        setBackground(new Color(245, 247, 250));
 
-        // ===== PANEL SUPERIOR CON BOTONES =====
+        
         JPanel panelBotones = new JPanel(new GridLayout(1, 4, 20, 10));
         panelBotones.setBackground(new Color(245, 247, 250));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(40, 40, 10, 40));
 
-        
         JButton btn1 = crearBotonConImagen("resources/Main_Frame_Images/cash_register.png", "Caja");
         JButton btn2 = crearBotonConImagen("resources/Main_Frame_Images/pizza.png", "Pizzas");
         JButton btn3 = crearBotonConImagen("resources/Main_Frame_Images/fast_food.png", "Cocina Principal");
@@ -42,6 +40,7 @@ public class MainPanel extends JPanel {
         panelBotones.add(btn2);
         panelBotones.add(btn3);
         panelBotones.add(btn4);
+
         JLabel textoInferior = new JLabel("Seleccione la estación a la que desea ingresar", SwingConstants.CENTER);
         textoInferior.setFont(new Font("Segoe UI", Font.BOLD, 20));
         textoInferior.setForeground(new Color(80, 80, 80));

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import co.edu.uptc.view.MainPanels.MainPanel;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
 
     private static MainFrame instance;
 
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame{
     }
 
     private void initComponents() {
-     MainPanel mainPanel = new MainPanel();
-     add(mainPanel);
+        MainPanel mainPanel = new MainPanel();
+        add(mainPanel);
     }
 }

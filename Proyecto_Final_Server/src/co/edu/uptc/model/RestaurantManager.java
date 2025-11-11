@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,12 +23,10 @@ public class RestaurantManager {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<Station> stations;
     private Queue<Order> orderQueue;
-    private Deque<Order> recordStack;
 
     public RestaurantManager() {
         this.stations = new ArrayList<>();
         this.orderQueue = new java.util.LinkedList<>();
-        this.recordStack = new java.util.ArrayDeque<>();
         configureStations();
     }
 
@@ -88,7 +85,6 @@ public class RestaurantManager {
             if (o.getIdOrder().equalsIgnoreCase(order.getIdOrder())) {
                 iterator.remove();
                 notifyStations(order, order.getCategoriesInvolved());
-                recordStack.push(o);
                 condition = true;
             }
         }
@@ -118,10 +114,6 @@ public class RestaurantManager {
             System.out.println("⚠️ Error notificando finalización a " + station.getName() + ": " + e.getMessage());
         }
 
-    }
-
-    public List<Order> getOrders() {
-        return new ArrayList<>(recordStack);
     }
 
     public String getOrdersJson() {

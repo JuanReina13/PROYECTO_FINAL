@@ -4,10 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
 
@@ -18,40 +16,60 @@ public class ControllerCashier {
     private DataOutputStream dataOutput;
     private DataInputStream dataInput;
     private Gson gson = new Gson();
+    private Socket socket;
+    private boolean connected = false;
 
     public ControllerCashier() {
-        try (Socket socket = new Socket(HOST, PORT)) {
+        try {
+            socket = new Socket(HOST, PORT);
             dataOutput = new DataOutputStream(socket.getOutputStream());
             dataInput = new DataInputStream(socket.getInputStream());
-            sendNewOrder(new Order("Paw Paw", List.of(
-                    new co.edu.uptc.model.Product("oniichan Pizza", "PIZZA", 15.99, 1),
-                    new co.edu.uptc.model.Product("cobb Salad", "SALAD", 7.99, 1),
-                    new co.edu.uptc.model.Product("classic dog", "HOT_DOG", 8.49, 2)
-                    )));
-                    System.out.println("Order created and sent to server.");
-            requestHistory();
-            sendExit();
+            connected = true;
         } catch (IOException e) {
-            System.out.println("Error en cliente: " + e.getMessage());
+            System.out.println("Error conectando la caja: " + e.getMessage());
         }
     }
 
-    private void sendNewOrder(Order order) throws IOException {
-        dataOutput.writeUTF("NEW_ORDER");
-        dataOutput.writeUTF(gson.toJson(order));
-        System.out.println("Respuesta del servidor: " + dataInput.readUTF());
+    public void sendNewOrder(Order order) {
+        if (connected) {
+            try {
+                dataOutput.writeUTF("NEW_ORDER");
+                dataOutput.writeUTF(gson.toJson(order));
+                dataOutput.flush();
+            } catch (IOException e) {
+                System.out.println("Error enviando la orden: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No está conectado al servidor.");
+        }
     }
 
-    private void requestHistory() throws IOException {
-        dataOutput.writeUTF("GET_HISTORY");
-        String json = dataInput.readUTF();
-        List<Order> orders = gson.fromJson(json, new TypeToken<List<Order>>() {}.getType());
-        System.out.println("\n📜 Historial recibido del servidor:");
-        orders.forEach(System.out::println);
+    public void requestHistory() {
+        if (connected) {
+            try {
+                dataOutput.writeUTF("GET_HISTORY");
+                dataOutput.flush();
+                String historyJson = dataInput.readUTF();
+                Order[] history = gson.fromJson(historyJson, Order[].class);
+
+            } catch (IOException e) {
+                System.out.println("Error solicitando historial: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No está conectado al servidor.");
+        }
     }
 
-    private void sendExit() throws IOException {
-        dataOutput.writeUTF("EXIT");
+    public void closeConnection() {
+        try {
+            if (connected) {
+                dataOutput.writeUTF("EXIT");
+                socket.close();
+                connected = false;
+            }
+        } catch (IOException e) {
+            System.out.println("Error cerrando conexión: " + e.getMessage());
+        }
     }
 
 }

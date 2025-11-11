@@ -43,8 +43,7 @@ public class ControllerStation {
                             case "NEW_ORDER":
                                 String json = input.readUTF();
                                 Order order = gson.fromJson(json, Order.class);
-                                System.out.println(
-                                        "📥 Nueva orden recibida en " + stationName + ": " + order.getIdOrder());
+                                
                                 break;
 
                             case "ORDER_FINISHED":
