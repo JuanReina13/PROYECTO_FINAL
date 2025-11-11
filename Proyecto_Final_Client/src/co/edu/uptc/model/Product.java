@@ -6,12 +6,15 @@ public class Product {
     private String category;
     private double price;
     private int quantity;
+    private String note;
 
-    public Product(String name, String category, double price, int quantity) {
+
+    public Product(String name, String category, double price, int quantity, String note) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+        this.note = note;
     }
 
     public String getName() {
@@ -41,7 +44,16 @@ public class Product {
     public int getQuantity() {
         return quantity;
     }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
