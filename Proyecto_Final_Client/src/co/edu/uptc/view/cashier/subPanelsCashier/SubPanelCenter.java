@@ -2,7 +2,6 @@ package co.edu.uptc.view.cashier.subPanelsCashier;
 
 import java.awt.CardLayout;
 
-import javax.smartcardio.Card;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.categoryPanels.BeveragesPanel;
@@ -34,7 +33,7 @@ public class SubPanelCenter extends JPanel{
         mexicanPanel = new MexicanPanel();
         beveragesPanel = new BeveragesPanel();
         cardLayout = new CardLayout();
-        setLayout(new CardLayout());
+        setLayout(cardLayout);
         initComponents();
     }
 
