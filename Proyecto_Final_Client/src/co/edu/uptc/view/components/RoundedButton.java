@@ -1,4 +1,4 @@
-package co.edu.uptc.view.myComponents;
+package co.edu.uptc.view.components;
 
 import java.awt.Color;
 import java.awt.Cursor;
