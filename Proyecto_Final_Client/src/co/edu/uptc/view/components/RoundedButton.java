@@ -2,7 +2,6 @@ package co.edu.uptc.view.components;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,8 +9,6 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.JButton;
-
-import org.w3c.dom.events.MouseEvent;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -56,7 +53,4 @@ public class RoundedButton extends JButton{
         this.backgroundColor = color;
         repaint();
     }
-
-   
-        
 }
