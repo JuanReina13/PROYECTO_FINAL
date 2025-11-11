@@ -7,7 +7,7 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import co.edu.uptc.view.myComponents.RoundedButton;
+import co.edu.uptc.view.components.RoundedButton;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class ButtonCategoryPanel extends JPanel{
