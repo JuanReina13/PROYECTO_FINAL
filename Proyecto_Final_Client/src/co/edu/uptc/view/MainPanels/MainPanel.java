@@ -1,4 +1,4 @@
-package co.edu.uptc.view.MainPanels;
+package co.edu.uptc.view.mainPanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
