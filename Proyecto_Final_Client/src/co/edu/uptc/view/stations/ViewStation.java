@@ -1,9 +1,6 @@
 package co.edu.uptc.view.stations;
 
-import java.awt.Color;
-
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.controller.ControllerStation;
@@ -31,6 +28,4 @@ public class ViewStation extends JPanel{
         add(infoPanel);
 
     }
-
-
 }

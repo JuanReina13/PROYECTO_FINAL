@@ -20,6 +20,7 @@ public class InfoPanel extends JPanel {
     private String stationName;
     private JButton openButton;
     private JButton recordButton;
+    private int orderCount = 0;
 
     public InfoPanel(String stationName) {
         this.stationName = stationName;
@@ -38,7 +39,7 @@ public class InfoPanel extends JPanel {
 
         add(Box.createHorizontalGlue());
         // add(Box.createHorizontalStrut(500));
-        openButton = createButton(getOrdersCount() + "   Ordenes", new Dimension(150, 50));
+        openButton = createButton(orderCount + "   Ordenes", new Dimension(150, 50));
         openButtonAction();
         add(openButton);
 
@@ -107,8 +108,4 @@ public class InfoPanel extends JPanel {
         b2.setBackground(UIStyle.PRIMARY_COLOR);
     }
 
-    private int getOrdersCount() {
-        // Lógica para obtener el número de órdenes pendientes
-        return 0; // Valor de ejemplo
-    }
 }
