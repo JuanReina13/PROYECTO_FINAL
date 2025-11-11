@@ -51,7 +51,6 @@ public class ControllerStation {
                                 Order finishedOrder = gson.fromJson(finishedOrderJson, Order.class);
 
                                 break;
-
                             case "HISTORY":
                                 String historyJson = input.readUTF();
                                 Order[] orders = gson.fromJson(historyJson, Order[].class);

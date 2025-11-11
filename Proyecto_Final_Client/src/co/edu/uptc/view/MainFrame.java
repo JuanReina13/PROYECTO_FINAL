@@ -1,6 +1,7 @@
 package co.edu.uptc.view;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import co.edu.uptc.view.MainPanels.MainPanel;
 
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
+
         setVisible(true);
     }
 
@@ -26,7 +28,14 @@ public class MainFrame extends JFrame {
     }
 
     private void initComponents() {
-        MainPanel mainPanel = new MainPanel();
-        add(mainPanel);
+        MainPanel mainPanel = new MainPanel(this);
+        setContentPane(mainPanel);
+    }
+
+    public void showPanel(JPanel newPanel) {
+        setContentPane(newPanel);
+        invalidate();
+        validate();
+        repaint();
     }
 }

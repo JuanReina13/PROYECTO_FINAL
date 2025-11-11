@@ -1,8 +1,7 @@
 package co.edu.uptc.model;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Order {
 
@@ -11,16 +10,9 @@ public class Order {
     private List<Product> products;
 
     public Order(String table, List<Product> products) {
-        this.idOrder = createIdOrder();
+        this.idOrder = UUID.randomUUID().toString();;
         this.table = table;
         this.products = products;
-    }
-
-    private String createIdOrder() {
-        String prefix = new SimpleDateFormat("yyMMdd").format(new Date());
-        int random = (int) (Math.random() * 10000);
-        String finalId = prefix + "-" + random;
-        return finalId;
     }
 
     public String getIdOrder() {
