@@ -12,8 +12,8 @@ import co.edu.uptc.view.stations.ViewStation;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //MainFrame.getInstance();
-        SwingUtilities.invokeLater(() -> {
+        MainFrame.getInstance();
+        /*SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Test Orders Panel");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1200, 700);
@@ -61,6 +61,6 @@ public class App {
 
             frame.setContentPane(station);
             frame.setVisible(true);
-        });
+        });*/
     }
 }
