@@ -25,11 +25,23 @@ public class UIStyle {
 
     public static final Color CATEGORY_PIZZA = new Color(251, 140, 0); // #FB8C00
     public static final Color CATEGORY_BURGUERS = new Color(9, 68, 121); // #094479ff
-    public static final Color CATEGORY_HOT_DOGS = new Color(204,0,0); // #cd1e1eff
+    public static final Color CATEGORY_HOT_DOGS = new Color(204, 0, 0); // #cd1e1eff
     public static final Color CATEGORY_SANDWICHES = new Color(67, 160, 71); // #43A047
     public static final Color CATEGORY_MEXICAN = new Color(28, 127, 173); // #1c7fadff
     public static final Color CATEGORY_SALADS = new Color(0, 105, 16); // #006910ff
     public static final Color CATEGORY_BEVERAGES = new Color(142, 36, 170); // #8E24AA
+
+    public static final Color P1  = new Color(255, 138, 20);  // #FF8A14
+    public static final Color P2  = new Color(214,  69, 12);  // #D6450C
+    public static final Color P3  = new Color(255, 183, 77);  // #FFB74D
+    public static final Color P4  = new Color(255, 220,160);  // #FFDC A0
+    public static final Color P5  = new Color(255, 102,102);  // #FF6666
+    public static final Color P6  = new Color(185, 102,70);   // #B96646
+    public static final Color P7  = new Color( 86,160,168);   // #56A0A8
+    public static final Color P8  = new Color( 61,111,151);   // #3D6F97
+    public static final Color P9  = new Color(230,150,80);    // #E69650
+
+    public static final Color TEXT_DARK = new Color(33,33,33); // #212121
     public static final Color BACKGROUND = new Color(245, 245, 245); // #F5F5F5
     public static final Color PANEL_BG = new Color(255, 255, 255); // #FFFFFF
     public static final Color SPACING = new Color(224, 224, 224); // #E0E0E0

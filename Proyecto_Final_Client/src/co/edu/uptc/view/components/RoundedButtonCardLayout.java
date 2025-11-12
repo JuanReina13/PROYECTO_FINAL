@@ -10,13 +10,13 @@ import java.awt.event.MouseAdapter;
 
 import javax.swing.JButton;
 
+import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
-public class RoundedButton extends JButton{
-
+public class RoundedButtonCardLayout extends JButton{
     private Color backgroundColor;
 
-    public RoundedButton(String text, Color backgroundColor) {
+    public RoundedButtonCardLayout(String text, Color backgroundColor, String cardLayoutName, SubPanelCenter subPanelCenter) {
         super(text);
         this.backgroundColor = backgroundColor;
         setFocusPainted(false);
@@ -28,7 +28,9 @@ public class RoundedButton extends JButton{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                
+                System.out.println("Button clicked: " + getText());
+                subPanelCenter.showPanel(cardLayoutName);
+                System.out.println("Button clicked222: " + getText());
             }
         });
     }
