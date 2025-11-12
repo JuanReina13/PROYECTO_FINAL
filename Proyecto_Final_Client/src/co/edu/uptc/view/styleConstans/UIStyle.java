@@ -6,12 +6,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.List;
+import java.util.Random;
 
 public class UIStyle {
     public static final Color PRIMARY_COLOR = new Color(25, 118, 210);
     public static final Color SECONDARY_COLOR = new Color(13, 71, 161);
     public static final Color BACKGROUND_COLOR = new Color(245, 245, 245);
     public static final Color TEXT_COLOR = Color.DARK_GRAY;
+
+    private static final List<Color> HEADER_COLORS = List.of(
+            new Color(220, 53, 69),   // Rojo
+            new Color(0, 123, 255),   // Azul
+            new Color(40, 167, 69),   // Verde
+            new Color(111, 66, 193),  // Morado
+            new Color(23, 162, 184)   // Cian
+    );
 
     public static final Color CATEGORY_PIZZA = new Color(251, 140, 0); // #FB8C00
     public static final Color CATEGORY_BURGUERS = new Color(9, 68, 121); // #094479ff
@@ -41,6 +51,12 @@ public class UIStyle {
 
     public static final Border BUTTON_BORDER = BorderFactory.createLineBorder(PRIMARY_COLOR, 2, true);
     public static final Border PANEL_BORDER = BorderFactory.createLineBorder(SECONDARY_COLOR, 1, true);
+
+    private static final Random random = new Random();
+
+    public static Color getRandomHeaderColor() {
+        return HEADER_COLORS.get(random.nextInt(HEADER_COLORS.size()));
+    }
 
     public static void styleButton(JButton button) {
         button.setBackground(PRIMARY_COLOR);

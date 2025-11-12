@@ -11,6 +11,8 @@ public class ViewStation extends JPanel{
 
     private ControllerStation controllerStation;
     private String stationName;
+    private InfoPanel infoPanel;
+    private JPanel downPanel;
 
     public ViewStation(String stationName, ControllerStation controllerStation) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -24,8 +26,24 @@ public class ViewStation extends JPanel{
     }
 
     private void initComponents() {
-        InfoPanel infoPanel = new InfoPanel(stationName);
+        infoPanel = new InfoPanel(stationName, controllerStation, this);
         add(infoPanel);
 
+        downPanel = new OrdersPanel(controllerStation);
+        add(downPanel);
+    }
+
+    public void setDownPanel(JPanel newPanel) {
+        remove(downPanel);
+        downPanel = newPanel;
+        add(downPanel);
+        invalidate();
+        validate();
+        repaint();
+    }
+
+
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 }

@@ -77,6 +77,7 @@ public class MainPanel extends JPanel {
         ControllerStation controller = new ControllerStation(name);
         controller.start();
         ViewStation viewStation = new ViewStation(name, controller);
+        controller.setViewStation(viewStation);
         viewStation.setVisible(true);
         mainFrame.showPanel(viewStation);
     }

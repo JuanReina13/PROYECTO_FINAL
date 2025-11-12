@@ -12,18 +12,23 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import co.edu.uptc.controller.ControllerStation;
 import co.edu.uptc.view.components.ShapedButtonUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class InfoPanel extends JPanel {
 
+    private ControllerStation controllerStation;
+    private ViewStation viewStation;
     private String stationName;
     private JButton openButton;
     private JButton recordButton;
     private int orderCount = 0;
 
-    public InfoPanel(String stationName) {
+    public InfoPanel(String stationName, ControllerStation controllerStation, ViewStation viewStation) {
         this.stationName = stationName;
+        this.controllerStation = controllerStation;
+        this.viewStation = viewStation;
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setBackground(UIStyle.BACKGROUND_COLOR);
         setPreferredSize(new Dimension(Integer.MAX_VALUE, 120));
@@ -36,12 +41,13 @@ public class InfoPanel extends JPanel {
         add(Box.createHorizontalStrut(40));
         addJLabel(stationName);
 
-
         add(Box.createHorizontalGlue());
         // add(Box.createHorizontalStrut(500));
         openButton = createButton(orderCount + "   Ordenes", new Dimension(150, 50));
         openButtonAction();
+        openButton.setBackground(UIStyle.SECONDARY_COLOR);
         add(openButton);
+
 
         add(Box.createHorizontalStrut(50));
         recordButton = createButton("Historial", new Dimension(150, 50));
@@ -55,9 +61,9 @@ public class InfoPanel extends JPanel {
     private void addJLabel(String text) {
         String title;
 
-        if(text.equals("MainKitchen")){
+        if (text.equals("MainKitchen")) {
             title = "Cocina";
-        } else if (text.equals("Expeditor")){
+        } else if (text.equals("Expeditor")) {
             title = "Expedidor";
         } else {
             title = text;
@@ -88,7 +94,7 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setActiveButton(openButton, recordButton);
-                //mainPanel.setRightComponent(new PositionsPanel(presenter));
+                viewStation.setDownPanel(new OrdersPanel(controllerStation));
             }
         });
     }
@@ -98,7 +104,7 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setActiveButton(recordButton, openButton);
-                //mainPanel.setRightComponent(new PositionsPanel(presenter));
+                viewStation.setDownPanel(new RecordPanel(controllerStation));
             }
         });
     }
@@ -108,4 +114,13 @@ public class InfoPanel extends JPanel {
         b2.setBackground(UIStyle.PRIMARY_COLOR);
     }
 
+    public void addOrderCount() {
+        this.orderCount++;
+    }
+
+    public void removeOrderCount() {
+        if (this.orderCount > 0) {
+            this.orderCount--;
+        }
+    }
 }

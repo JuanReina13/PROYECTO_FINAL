@@ -7,8 +7,11 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import co.edu.uptc.model.Order;
+import co.edu.uptc.view.stations.ViewStation;
 
 import java.net.Socket;
+import java.util.List;
+
 
 public class ControllerStation {
     private final String HOST = "localhost";
@@ -19,6 +22,8 @@ public class ControllerStation {
     private Gson gson;
     private boolean running;
     private String stationName;
+    private ViewStation viewStation;
+    private List<Order> orderList;
 
     public ControllerStation(String stationName) {
         this.stationName = stationName;
@@ -43,12 +48,16 @@ public class ControllerStation {
                             case "NEW_ORDER":
                                 String json = input.readUTF();
                                 Order order = gson.fromJson(json, Order.class);
+                                orderList.add(order);
+                                viewStation.getInfoPanel().addOrderCount();
                                 
                                 break;
 
                             case "ORDER_FINISHED":
                                 String finishedOrderJson = input.readUTF();
                                 Order finishedOrder = gson.fromJson(finishedOrderJson, Order.class);
+                                orderList.removeIf(o -> o.getIdOrder().equals(finishedOrder.getIdOrder()));
+                                viewStation.getInfoPanel().removeOrderCount();
 
                                 break;
                             case "HISTORY":
@@ -91,5 +100,14 @@ public class ControllerStation {
             socket.close();
         } catch (Exception ignored) {
         }
+    }
+
+    public void setViewStation(ViewStation viewStation) {
+        this.viewStation = viewStation;
+    }
+
+    
+    public List<Order> getOrderList() {
+        return orderList;
     }
 }
