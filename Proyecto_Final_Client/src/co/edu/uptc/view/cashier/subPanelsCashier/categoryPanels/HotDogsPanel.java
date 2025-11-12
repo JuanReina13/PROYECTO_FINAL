@@ -1,15 +1,56 @@
 package co.edu.uptc.view.cashier.subPanelsCashier.categoryPanels;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
+import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonCardLayout;
+import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class HotDogsPanel extends JPanel{
 
-    public HotDogsPanel() {
-        
+    private RoundedButtonCardLayout btnBack;
+    private RoundedButton btnBaconCheese;
+    private RoundedButton btnChicago;
+    private RoundedButton btnDetroit;
+    private RoundedButton btnClassic;
+
+    public HotDogsPanel(SubPanelCenter subPanelCenter) {
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        initComponents(subPanelCenter);
+        setVisible(true);
     }
 
-    private void initComponents() {
-        
+    private void initComponents(SubPanelCenter subPanelCenter) {
+        btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
+        btnBaconCheese = new RoundedButton("Bacon Cheese Dog - USD 8.99", UIStyle.P2);
+        btnChicago = new RoundedButton("Chicago Dog - USD 8.99", UIStyle.P1);
+        btnDetroit = new RoundedButton("Detroit Dog - USD 8.99", UIStyle.P3);
+        btnClassic = new RoundedButton("Classic Dog - USD 5.99", UIStyle.P4);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0; gbc.gridy = 0;
+        add(btnBack, gbc);
+
+        JLabel label = new JLabel("");
+        gbc.gridx = 1;
+        add(label, gbc);
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridy = 1; add(btnClassic, gbc);
+        gbc.gridy = 2; add(btnDetroit, gbc);
+        gbc.gridy = 3; add(btnChicago, gbc);
+        gbc.gridy = 4; add(btnBaconCheese, gbc);
     }
 
 }
