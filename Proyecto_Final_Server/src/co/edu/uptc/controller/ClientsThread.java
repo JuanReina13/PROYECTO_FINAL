@@ -44,8 +44,11 @@ public class ClientsThread extends Thread {
                         break;
 
                     case "GET_HISTORY":
-                        String historyJson = restaurantManager.getOrdersJson();
+                        String historyJson = restaurantManager.getRecordsJson();
+                        dataOutput.writeUTF("HISTORY");
                         dataOutput.writeUTF(historyJson);
+                        dataOutput.flush();
+                        System.out.println("📜 Historial enviado (" + historyJson.length() + " bytes)");
                         break;
 
                     case "FINISH_ORDER":
@@ -59,7 +62,6 @@ public class ClientsThread extends Thread {
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
                         station.setClientOutput(dataOutput);
-
                         System.out.println("Estación registrada: " + stationName);
                         break;
 

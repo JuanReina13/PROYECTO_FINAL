@@ -1,27 +1,39 @@
 package co.edu.uptc.view.stations;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
 import co.edu.uptc.controller.ControllerStation;
+import co.edu.uptc.model.Order;
 import co.edu.uptc.view.components.ScrollBarUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class RecordPanel extends JPanel {
 
     private ControllerStation controllerStation;
-    private JPanel ordersContainer; 
+    private JPanel ordersContainer;
     private JScrollPane scrollPane;
+    private List<OrderCardPanel> orderCards;
 
     public RecordPanel(ControllerStation controllerStation) {
+        orderCards = new ArrayList<>();
         this.controllerStation = controllerStation;
         setLayout(new BorderLayout());
-        setBackground(UIStyle.TEXT_COLOR); 
+        setBackground(UIStyle.TEXT_COLOR);
         initComponents();
     }
 
@@ -29,7 +41,10 @@ public class RecordPanel extends JPanel {
         ordersContainer = new JPanel();
         ordersContainer.setLayout(new BoxLayout(ordersContainer, BoxLayout.X_AXIS));
         ordersContainer.setBackground(UIStyle.TEXT_COLOR);
+        ordersContainer.setBorder(new EmptyBorder(15, 15, 15, 15));
+        orderCards = convertToOrderCards();
         addJScrollPane();
+        showOrders();
     }
 
     private void addJScrollPane() {
@@ -44,4 +59,47 @@ public class RecordPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    public void addOrderCard(OrderCardPanel orderCard) {
+        orderCards.add(orderCard);
+        orderCard.setAlignmentY(Component.TOP_ALIGNMENT);
+        ordersContainer.add(orderCard);
+        ordersContainer.add(Box.createHorizontalStrut(20));
+        ordersContainer.revalidate();
+        ordersContainer.repaint();
+    }
+
+    public void showOrders() {
+        ordersContainer.removeAll();
+        for (OrderCardPanel orderCard : orderCards) {
+            orderCard.setAlignmentY(Component.TOP_ALIGNMENT);
+            ordersContainer.add(orderCard);
+            ordersContainer.add(Box.createHorizontalStrut(20));
+        }
+        ordersContainer.revalidate();
+        ordersContainer.repaint();
+    }
+
+    private List<OrderCardPanel> convertToOrderCards() {
+        List<OrderCardPanel> orderCards = new ArrayList<>();
+        List<Order> orders = controllerStation.getOrderHistory();
+        for (Order order : orders) {
+            List<String> productStrings = order.getProducts().stream()
+                    .map(p -> p.getQuantity() + "x " + p.getName())
+                    .collect(Collectors.toList());
+
+            OrderCardPanel card = new OrderCardPanel(
+                    order.getTable(),
+                    formatTime(order.getTime()),
+                    productStrings, false);
+
+            orderCards.add(card);
+        }
+        return orderCards;
+    }
+
+    private String formatTime(long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
+        return String.format("%02d:%02d", time.getHour(), time.getMinute());
+    }
 }

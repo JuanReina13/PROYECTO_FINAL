@@ -1,13 +1,16 @@
 package co.edu.uptc.view.stations;
 
+import java.awt.Window;
+
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import co.edu.uptc.controller.ControllerStation;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
-
-public class ViewStation extends JPanel{
+public class ViewStation extends JPanel {
 
     private ControllerStation controllerStation;
     private String stationName;
@@ -28,9 +31,23 @@ public class ViewStation extends JPanel{
     private void initComponents() {
         infoPanel = new InfoPanel(stationName, controllerStation, this);
         add(infoPanel);
-
         downPanel = new OrdersPanel(controllerStation);
         add(downPanel);
+        SwingUtilities.invokeLater(() -> {
+            Window window = SwingUtilities.getWindowAncestor(ViewStation.this);
+            if (window instanceof JFrame frame) {
+                frame.setExtendedState(JFrame.NORMAL);
+                frame.setSize(1200, 700);
+                frame.setLocationRelativeTo(null);
+            } else if (window != null) {
+                window.setSize(1200, 700);
+                window.setLocationRelativeTo(null);
+            }
+        });
+    }
+
+    public void showHistoryPanel() {
+        setDownPanel(new RecordPanel(controllerStation));
     }
 
     public void setDownPanel(JPanel newPanel) {
@@ -41,7 +58,6 @@ public class ViewStation extends JPanel{
         validate();
         repaint();
     }
-
 
     public InfoPanel getInfoPanel() {
         return infoPanel;

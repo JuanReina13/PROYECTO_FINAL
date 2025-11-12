@@ -12,8 +12,8 @@ import co.edu.uptc.view.stations.ViewStation;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        MainFrame.getInstance();
-        /*SwingUtilities.invokeLater(() -> {
+        //MainFrame.getInstance();
+        SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Test Orders Panel");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1200, 700);
@@ -26,32 +26,12 @@ public class App {
                 List<String> items = Arrays.asList(
                         "1 Pizza MargaritaPizza MargaritaPizza MargaritaPizza MargaritaPizza Margarita",
                         "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo"
+                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita"
                 );
                 OrderCardPanel card = new OrderCardPanel(
                         "Cliente " + i,
                         "10:" + (20 + i),
-                        items
+                        items, true
                 );
                 ordersPanel.addOrderCard(card);
             }
@@ -61,6 +41,6 @@ public class App {
 
             frame.setContentPane(station);
             frame.setVisible(true);
-        });*/
+        });
     }
 }

@@ -104,7 +104,7 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setActiveButton(recordButton, openButton);
-                viewStation.setDownPanel(new RecordPanel(controllerStation));
+                controllerStation.requestHistory();
             }
         });
     }

@@ -1,6 +1,8 @@
 package co.edu.uptc.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,7 +12,7 @@ public class Order {
     private String table;
     private List<Product> products;
     private boolean isReady;
-    private long time;
+    private String time;
     private List<ProductCategory> categoriesInvolved;
 
     public Order(String table, List<Product> products) {
@@ -18,7 +20,7 @@ public class Order {
         this.table = table;
         this.products = products;
         this.isReady = false;
-        this.time = System.currentTimeMillis();
+        setTime();
         categoriesInvolved();
     }
 
@@ -38,6 +40,17 @@ public class Order {
                 categoriesInvolved.add(product.getCategory());
             }
         }
+    }
+
+    public String getCreationTime(long timemm) {
+        Date date = new Date(timemm);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(date);
+    }
+
+    public void setTime(){
+        long timemm = System.currentTimeMillis();
+        time = getCreationTime(timemm);
     }
 
     public String getIdOrder() {
@@ -72,11 +85,11 @@ public class Order {
         this.isReady = isReady;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

@@ -3,17 +3,23 @@ package co.edu.uptc.view.stations;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import java.awt.event.MouseEvent;
+
 import co.edu.uptc.view.components.RoundedPanelUI;
 import co.edu.uptc.view.components.ScrollBarUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.util.List;
 
 public class OrderCardPanel extends RoundedPanelUI {
 
-    public OrderCardPanel(String table, String time, List<String> products) {
+    private boolean isActive;
+
+    public OrderCardPanel(String table, String time, List<String> products, boolean isActive) {
         super(UIStyle.BACKGROUND, 20);
+        this.isActive = isActive;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 400));
         setMaximumSize(new Dimension(260, Integer.MAX_VALUE));
@@ -47,7 +53,87 @@ public class OrderCardPanel extends RoundedPanelUI {
 
         headerPanel.add(lblCustomer, BorderLayout.WEST);
         headerPanel.add(rightHeader, BorderLayout.EAST);
+
+        if (isActive) {
+            headerPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            headerPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    headerPanel.setBackground(color.darker());
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    headerPanel.setBackground(color);
+                }
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showConfirmationPanel(headerPanel, table, time, color);
+                }
+            });
+        }
         add(headerPanel, BorderLayout.NORTH);
+    }
+
+    private void showConfirmationPanel(RoundedPanelUI headerPanel, String table, String time, Color color) {
+        headerPanel.removeAll();
+        headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        JButton btnConfirm = createIconButton("✓", new Color(0, 200, 83)); // Verde
+        JButton btnCancel = createIconButton("✕", new Color(229, 57, 53)); // Rojo
+
+        // Acción: confirmar orden
+        btnConfirm.addActionListener(e -> {
+            // Aquí podrías notificar al ControllerStation
+            // controllerStation.sendFinishOrder(order);
+
+            restoreHeader(headerPanel, table, time, color);
+        });
+
+        // Acción: cancelar confirmación
+        btnCancel.addActionListener(e -> restoreHeader(headerPanel, table, time, color));
+
+        headerPanel.add(btnConfirm);
+        headerPanel.add(btnCancel); 
+        headerPanel.revalidate();
+        headerPanel.repaint();
+    }
+
+
+    private void restoreHeader(RoundedPanelUI headerPanel, String table, String time, Color color) {
+        headerPanel.removeAll();
+        headerPanel.setLayout(new BorderLayout());
+
+        JLabel lblCustomer = new JLabel(table);
+        lblCustomer.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblCustomer.setForeground(Color.WHITE);
+
+        JLabel lblTime = new JLabel(time, SwingConstants.RIGHT);
+        lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        lblTime.setForeground(Color.WHITE);
+
+        JPanel rightHeader = new JPanel(new GridLayout(2, 1));
+        rightHeader.setBackground(color);
+        rightHeader.add(lblTime);
+
+        headerPanel.add(lblCustomer, BorderLayout.WEST);
+        headerPanel.add(rightHeader, BorderLayout.EAST);
+        headerPanel.revalidate();
+        headerPanel.repaint();
+    }
+
+    private JButton createIconButton(String symbol, Color bgColor) {
+        JButton button = new JButton(symbol);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        button.setForeground(Color.WHITE);
+        button.setBackground(bgColor);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+        button.setPreferredSize(new Dimension(50, 35));
+        return button;
     }
 
     private void addItemsPanel(List<String> products) {
@@ -61,7 +147,7 @@ public class OrderCardPanel extends RoundedPanelUI {
             String main = parts[0].trim();
             String extra = parts.length > 1 ? parts[1].trim() : null;
 
-            // ✅ Texto principal con salto de línea
+            // Texto principal
             JTextArea txtMain = new JTextArea(main);
             txtMain.setFont(new Font("Segoe UI", Font.BOLD, 16));
             txtMain.setForeground(new Color(30, 30, 30));
@@ -72,7 +158,14 @@ public class OrderCardPanel extends RoundedPanelUI {
             txtMain.setWrapStyleWord(true);
             txtMain.setAlignmentX(Component.LEFT_ALIGNMENT);
             txtMain.setBorder(new EmptyBorder(3, 0, 0, 0));
-            txtMain.setMaximumSize(new Dimension(230, Integer.MAX_VALUE));
+
+            FontMetrics fm = txtMain.getFontMetrics(txtMain.getFont());
+            int lineHeight = fm.getHeight();
+            int lines = (int) Math.ceil((double) fm.stringWidth(main) / 210.0);
+            int preferredHeight = Math.max(lineHeight * lines + 5, lineHeight + 5);
+            txtMain.setMaximumSize(new Dimension(230, preferredHeight));
+            txtMain.setPreferredSize(new Dimension(230, preferredHeight));
+
             itemsPanel.add(txtMain);
 
             // Subtexto (extras)
@@ -88,17 +181,12 @@ public class OrderCardPanel extends RoundedPanelUI {
             itemsPanel.add(Box.createVerticalStrut(10));
         }
 
-        // 🔹 Solo el panel de productos tiene scroll si se excede la altura
+        // Solo el panel de productos tiene scroll si se excede la altura
         int estimatedHeight = products.size() * 40 + 40;
         int maxHeight = 250;
-
-        JScrollPane scrollPane = new JScrollPane(
-                itemsPanel,
-                estimatedHeight > maxHeight
-                        ? JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
-                        : JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
+        JScrollPane scrollPane = new JScrollPane(itemsPanel, estimatedHeight > maxHeight
+                ? JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+                : JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(260, Math.min(estimatedHeight, maxHeight)));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setBackground(Color.WHITE);

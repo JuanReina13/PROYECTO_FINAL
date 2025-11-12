@@ -7,11 +7,15 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import co.edu.uptc.model.Order;
+import co.edu.uptc.view.stations.RecordPanel;
 import co.edu.uptc.view.stations.ViewStation;
 
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 
 public class ControllerStation {
     private final String HOST = "localhost";
@@ -24,9 +28,12 @@ public class ControllerStation {
     private String stationName;
     private ViewStation viewStation;
     private List<Order> orderList;
+    private List<Order> orderHistory;
 
     public ControllerStation(String stationName) {
         this.stationName = stationName;
+        orderList = new ArrayList<>();
+        orderHistory = new ArrayList<>();
         gson = new Gson();
     }
 
@@ -50,7 +57,7 @@ public class ControllerStation {
                                 Order order = gson.fromJson(json, Order.class);
                                 orderList.add(order);
                                 viewStation.getInfoPanel().addOrderCount();
-                                
+
                                 break;
 
                             case "ORDER_FINISHED":
@@ -63,7 +70,14 @@ public class ControllerStation {
                             case "HISTORY":
                                 String historyJson = input.readUTF();
                                 Order[] orders = gson.fromJson(historyJson, Order[].class);
-
+                                orderHistory.clear();
+                                orderHistory.addAll(Arrays.asList(orders));
+                                System.out.println("📜 Historial recibido: " + orderHistory.size() + " órdenes");
+                                SwingUtilities.invokeLater(() -> {
+                                    if (viewStation != null) {
+                                        viewStation.showHistoryPanel();
+                                    }
+                                });
                                 break;
                             case "EXIT":
                                 running = false;
@@ -94,6 +108,15 @@ public class ControllerStation {
         }
     }
 
+    public void requestHistory() {
+        try {
+            output.writeUTF("GET_HISTORY");
+            output.flush();
+        } catch (IOException e) {
+            System.out.println("Error al solicitar el historial: " + e.getMessage());
+        }
+    }
+
     public void stop() {
         try {
             running = false;
@@ -106,8 +129,11 @@ public class ControllerStation {
         this.viewStation = viewStation;
     }
 
-    
     public List<Order> getOrderList() {
         return orderList;
+    }
+
+    public List<Order> getOrderHistory() {
+        return orderHistory;
     }
 }

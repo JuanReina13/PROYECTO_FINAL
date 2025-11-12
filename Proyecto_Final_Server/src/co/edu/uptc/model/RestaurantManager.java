@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,15 +20,19 @@ import com.google.gson.reflect.TypeToken;
 
 public class RestaurantManager {
 
-    private final String FILE_PATH = "data/orders.json";
+    private final String ACTIVE_FILE_PATH = "data/orders.json";     
+    private final String RECORD_FILE_PATH = "data/records.json"; 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<Station> stations;
     private Queue<Order> orderQueue;
+    private Stack<Order> orderStack;
 
     public RestaurantManager() {
         this.stations = new ArrayList<>();
-        this.orderQueue = new java.util.LinkedList<>();
+        this.orderQueue = new LinkedList<>();
+        this.orderStack = new Stack<>();
         configureStations();
+        loadData();
     }
 
     private void configureStations() {
@@ -58,9 +63,7 @@ public class RestaurantManager {
     }
 
     public void addOrder(Order order) {
-        Queue<Order> currentOrders = loadOrdersFromFile();
-        currentOrders.add(order);
-        orderQueue = currentOrders;
+        orderQueue.add(order);
         shareOrder(order);
         saveOrdersToFile();
     }
@@ -79,15 +82,18 @@ public class RestaurantManager {
 
     public void finishOrder(Order order) {
         Iterator<Order> iterator = orderQueue.iterator();
-        boolean condition = false;
-        while (iterator.hasNext() && condition) {
+        while (iterator.hasNext()) {
             Order o = iterator.next();
             if (o.getIdOrder().equalsIgnoreCase(order.getIdOrder())) {
-                iterator.remove();
+                iterator.remove(); 
+                orderStack.push(o);         
                 notifyStations(order, order.getCategoriesInvolved());
-                condition = true;
+                break;
             }
         }
+
+        saveOrdersToFile();   
+        saveRecordsToFile();    
     }
 
     private void notifyStations(Order order, List<ProductCategory> categories) {
@@ -120,29 +126,56 @@ public class RestaurantManager {
         return gson.toJson(orderQueue);
     }
 
+    public String getRecordsJson() {
+        return gson.toJson(orderStack);
+    }
+
     private void saveOrdersToFile() {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+        try (FileWriter writer = new FileWriter(ACTIVE_FILE_PATH)) {
             gson.toJson(orderQueue, writer);
         } catch (IOException e) {
-            System.out.println("Error guardando el archivo JSON: " + e.getMessage());
+            System.out.println("Error guardando órdenes activas: " + e.getMessage());
         }
     }
 
-    private Queue<Order> loadOrdersFromFile() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return new LinkedList<>();
+    private void saveRecordsToFile() {
+        try (FileWriter writer = new FileWriter(RECORD_FILE_PATH)) {
+            gson.toJson(orderStack, writer);
+        } catch (IOException e) {
+            System.out.println("Error guardando historial: " + e.getMessage());
         }
+    }
 
-        try (Reader reader = new FileReader(FILE_PATH)) {
-            Type queueType = new TypeToken<Queue<Order>>() {
-            }.getType();
+    private void loadData() {
+        this.orderQueue = loadOrdersFromFile(ACTIVE_FILE_PATH);
+        this.orderStack = loadOrdersFromStack(RECORD_FILE_PATH);
+    }
+
+    private Queue<Order> loadOrdersFromFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) return new LinkedList<>();
+
+        try (Reader reader = new FileReader(file)) {
+            Type queueType = new TypeToken<Queue<Order>>() {}.getType();
             Queue<Order> loaded = gson.fromJson(reader, queueType);
             return (loaded != null) ? loaded : new LinkedList<>();
         } catch (IOException e) {
-            System.out.println("Error leyendo el archivo JSON: " + e.getMessage());
+            System.out.println("Error leyendo archivo de órdenes: " + e.getMessage());
             return new LinkedList<>();
         }
     }
 
+    private Stack<Order> loadOrdersFromStack(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) return new Stack<>();
+
+        try (Reader reader = new FileReader(file)) {
+            Type stackType = new TypeToken<Stack<Order>>() {}.getType();
+            Stack<Order> loaded = gson.fromJson(reader, stackType);
+            return (loaded != null) ? loaded : new Stack<>();
+        } catch (IOException e) {
+            System.out.println("Error leyendo historial: " + e.getMessage());
+            return new Stack<>();
+        }
+    }
 }

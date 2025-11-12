@@ -8,11 +8,13 @@ public class Order {
     private String idOrder;
     private String table;
     private List<Product> products;
+    private long time;
 
-    public Order(String table, List<Product> products) {
+    public Order(String table, List<Product> products, long time) {
         this.idOrder = UUID.randomUUID().toString();;
         this.table = table;
         this.products = products;
+        this.time = time;
     }
 
     public String getIdOrder() {
@@ -35,4 +37,11 @@ public class Order {
         this.products = products;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 }
