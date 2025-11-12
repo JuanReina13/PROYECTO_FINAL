@@ -9,23 +9,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class PizzasPanel extends JPanel {
 
     private RoundedButtonCardLayout btnBack;
-    private RoundedButton btnPepperoni;
-    private RoundedButton btnSupreme;
-    private RoundedButton btnHawaiian;
-    private RoundedButton btnRanch;
-    private RoundedButton btnBbq;
-    private RoundedButton btnMeatLovers;
-    private RoundedButton btnBlt;
-    private RoundedButton btnJalapenoPopper;
-    private RoundedButton btnHaysticks;
-    private RoundedButton btnHaysticksWithCheese;
+    private RoundedButtonProduct btnPepperoni;
+    private RoundedButtonProduct btnSupreme;
+    private RoundedButtonProduct btnHawaiian;
+    private RoundedButtonProduct btnRanch;
+    private RoundedButtonProduct btnBbq;
+    private RoundedButtonProduct btnMeatLovers;
+    private RoundedButtonProduct btnBlt;
+    private RoundedButtonProduct btnJalapenoPopper;
+    private RoundedButtonProduct btnHaysticks;
+    private RoundedButtonProduct btnHaysticksWithCheese;
 
     public PizzasPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
@@ -37,17 +37,17 @@ public class PizzasPanel extends JPanel {
     private void initComponents(SubPanelCenter subPanelCenter) {
 
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnPepperoni = new RoundedButton("Pizza de Pepperoni", UIStyle.P2);
-        btnBbq = new RoundedButton("Pizza pollo, gouda BBQ", UIStyle.P8);
-        btnSupreme = new RoundedButton("Pizza Suprema", UIStyle.P3);
-        btnRanch = new RoundedButton("Pizza Tocineta, pollo, ranch", UIStyle.P9);
+        btnPepperoni = new RoundedButtonProduct("pz-pepperoni", UIStyle.P2);
+        btnSupreme = new RoundedButtonProduct("pz-supreme", UIStyle.P3);
+        btnHawaiian = new RoundedButtonProduct("pz-hawaiian", UIStyle.P4);
+        btnRanch = new RoundedButtonProduct("pz-ranch", UIStyle.P9);
+        btnBbq = new RoundedButtonProduct("pz-bbq", UIStyle.P8);
         btnRanch.setForeground(UIStyle.TEXT_DARK);
-        btnHawaiian = new RoundedButton("Pizza Hawaiana", UIStyle.P4);
-        btnMeatLovers = new RoundedButton("Pizza Amantes de la carne", UIStyle.P9);
-        btnJalapenoPopper = new RoundedButton("Pizza Jalapeño Popper", UIStyle.P7);
-        btnBlt = new RoundedButton("Pizza Tocineta, lechuga, tomate", UIStyle.P5);
-        btnHaysticks = new RoundedButton("Haysticks", UIStyle.P6);
-        btnHaysticksWithCheese = new RoundedButton("Haysticks con queso", UIStyle.P4);
+        btnMeatLovers = new RoundedButtonProduct("pz-meatlovers", UIStyle.P9);
+        btnBlt = new RoundedButtonProduct("pz-blt", UIStyle.P5);
+        btnJalapenoPopper = new RoundedButtonProduct("pz-jalapeno", UIStyle.P7);
+        btnHaysticks = new RoundedButtonProduct("pz-haysticks", UIStyle.P6);
+        btnHaysticksWithCheese = new RoundedButtonProduct("pz-haysticks-cheese", UIStyle.P4);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

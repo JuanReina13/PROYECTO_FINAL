@@ -10,18 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class SandwichesPanel extends JPanel{
 
     private RoundedButtonCardLayout btnBack;
-    private RoundedButton btnBlt;
-    private RoundedButton btnGrilledCheese;
-    private RoundedButton btnGrilledCheeseDeluxe;
-    private RoundedButton btnGrilledChicken;
-    private RoundedButton btnHaystack;
+    private RoundedButtonProduct btnBlt;
+    private RoundedButtonProduct btnGrilledCheese;
+    private RoundedButtonProduct btnGrilledCheeseDeluxe;
+    private RoundedButtonProduct btnGrilledChicken;
+    private RoundedButtonProduct btnHaystack;
 
     public SandwichesPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
@@ -32,11 +32,11 @@ public class SandwichesPanel extends JPanel{
 
     private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnBlt = new RoundedButton("BLT Sandwich - USD 8.99", UIStyle.CATEGORY_SANDWICHES);
-        btnGrilledCheese = new RoundedButton("Grilled Cheese Sandwich - USD 7.99", UIStyle.P3);
-        btnGrilledCheeseDeluxe = new RoundedButton("Grilled Cheese Deluxe - USD 8.99", UIStyle.P5);
-        btnGrilledChicken = new RoundedButton("Grilled Chicken Sandwich - USD 10.99", UIStyle.P8);
-        btnHaystack = new RoundedButton("Haystack Sandwich - USD 10.99", UIStyle.P1);
+        btnBlt = new RoundedButtonProduct("sw-blt", UIStyle.CATEGORY_SANDWICHES);
+        btnGrilledCheese = new RoundedButtonProduct("sw-grilled-cheese", UIStyle.P3);
+        btnGrilledCheeseDeluxe = new RoundedButtonProduct("sw-grilled-cheese-deluxe", UIStyle.P5);
+        btnGrilledChicken = new RoundedButtonProduct("sw-grilled-chicken", UIStyle.P8);
+        btnHaystack = new RoundedButtonProduct("sw-haystack", UIStyle.P1);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

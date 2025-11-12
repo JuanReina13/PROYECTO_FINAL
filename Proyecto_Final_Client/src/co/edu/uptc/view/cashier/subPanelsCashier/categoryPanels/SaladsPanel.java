@@ -10,17 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class SaladsPanel extends JPanel{
 
    private RoundedButtonCardLayout btnBack;
-    private RoundedButton btnCaesar;
-    private RoundedButton btnChef;
-    private RoundedButton btnCobb;
-    private RoundedButton btnMediterranean;
+    private RoundedButtonProduct btnCaesar;
+    private RoundedButtonProduct btnChef;
+    private RoundedButtonProduct btnCobb;
+    private RoundedButtonProduct btnMediterranean;
 
     public SaladsPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
@@ -31,10 +31,10 @@ public class SaladsPanel extends JPanel{
 
     private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnCaesar = new RoundedButton("Caesar Salad (No chicken) - USD 9.50", UIStyle.P7);
-        btnChef = new RoundedButton("Chef Salad - USD 11.99", UIStyle.P4);
-        btnCobb = new RoundedButton("Cobb Salad - USD 11.99", UIStyle.P8);
-        btnMediterranean = new RoundedButton("Mediterranean Salad - USD 11.99", UIStyle.P6);
+        btnCaesar = new RoundedButtonProduct("sd-caesar", UIStyle.P7);
+        btnChef = new RoundedButtonProduct("sd-chef", UIStyle.P4);
+        btnCobb = new RoundedButtonProduct("sd-cobb", UIStyle.P8);
+        btnMediterranean = new RoundedButtonProduct("sd-mediterranean", UIStyle.P6);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

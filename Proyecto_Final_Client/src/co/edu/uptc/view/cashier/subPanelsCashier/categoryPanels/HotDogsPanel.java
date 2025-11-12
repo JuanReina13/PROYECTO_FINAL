@@ -9,17 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class HotDogsPanel extends JPanel{
 
     private RoundedButtonCardLayout btnBack;
-    private RoundedButton btnBaconCheese;
-    private RoundedButton btnChicago;
-    private RoundedButton btnDetroit;
-    private RoundedButton btnClassic;
+    private RoundedButtonProduct btnBaconCheese;
+    private RoundedButtonProduct btnChicago;
+    private RoundedButtonProduct btnDetroit;
+    private RoundedButtonProduct btnClassic;
 
     public HotDogsPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
@@ -30,10 +30,10 @@ public class HotDogsPanel extends JPanel{
 
     private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnBaconCheese = new RoundedButton("Bacon Cheese Dog - USD 8.99", UIStyle.P2);
-        btnChicago = new RoundedButton("Chicago Dog - USD 8.99", UIStyle.P1);
-        btnDetroit = new RoundedButton("Detroit Dog - USD 8.99", UIStyle.P3);
-        btnClassic = new RoundedButton("Classic Dog - USD 5.99", UIStyle.P4);
+        btnBaconCheese = new RoundedButtonProduct("hd-bacon-cheese", UIStyle.P2);
+        btnChicago = new RoundedButtonProduct("hd-chicago", UIStyle.P1);
+        btnDetroit = new RoundedButtonProduct("hd-detroit", UIStyle.P3);
+        btnClassic = new RoundedButtonProduct("hd-classic", UIStyle.P4);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

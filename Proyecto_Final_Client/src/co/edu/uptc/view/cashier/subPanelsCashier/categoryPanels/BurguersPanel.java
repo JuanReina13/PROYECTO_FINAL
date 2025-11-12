@@ -10,19 +10,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.components.RoundedButton;
+import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class BurguersPanel extends JPanel {
     private RoundedButtonCardLayout btnBack;
-    private RoundedButton btnHayloftBurger;
-    private RoundedButton btnHayloftBurgerWithCheese;
-    private RoundedButton btnBltBurguer;
-    private RoundedButton btnRanchBurger;
-    private RoundedButton btnSwissMushroomsBurger;
-    private RoundedButton btnSpicyPepperJackBurger;
-    private RoundedButton btnDoubleBurguer;
+    private RoundedButtonProduct btnHayloftBurger;
+    private RoundedButtonProduct btnHayloftBurgerWithCheese;
+    private RoundedButtonProduct btnBltBurguer;
+    private RoundedButtonProduct btnRanchBurger;
+    private RoundedButtonProduct btnSwissMushroomsBurger;
+    private RoundedButtonProduct btnSpicyPepperJackBurger;
+    private RoundedButtonProduct btnDoubleBurguer;
 
     public BurguersPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
@@ -33,13 +33,13 @@ public class BurguersPanel extends JPanel {
 
     private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnHayloftBurger = new RoundedButton("Hayloft Classic Burger - USD 9.99", UIStyle.P1);
-        btnHayloftBurgerWithCheese = new RoundedButton("Hayloft Burger with Cheese - USD 10.99", UIStyle.P4);
-        btnBltBurguer = new RoundedButton("BLT Burger - USD 11.99", UIStyle.P5);
-        btnRanchBurger = new RoundedButton("Ranch Burger - USD 12.99", UIStyle.P3);
-        btnSwissMushroomsBurger = new RoundedButton("Swiss & Mushrooms Burger - USD 12.99", UIStyle.P7);
-        btnSpicyPepperJackBurger = new RoundedButton("Spicy Pepper Jack Burger - USD 12.99", UIStyle.P6);
-        btnDoubleBurguer = new RoundedButton("Double Burger - USD 14.99", UIStyle.P1);
+        btnHayloftBurger = new RoundedButtonProduct("bg-hayloft-classic", UIStyle.P1);
+        btnHayloftBurgerWithCheese = new RoundedButtonProduct("bg-hayloft-cheese", UIStyle.P4);
+        btnBltBurguer = new RoundedButtonProduct("bg-blt", UIStyle.P5);
+        btnRanchBurger = new RoundedButtonProduct("bg-ranch", UIStyle.P3);
+        btnSwissMushroomsBurger = new RoundedButtonProduct("bg-swiss-mushrooms", UIStyle.P7);
+        btnSpicyPepperJackBurger = new RoundedButtonProduct("bg-spicy-pepperjack", UIStyle.P6);
+        btnDoubleBurguer = new RoundedButtonProduct("bg-double", UIStyle.P1);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

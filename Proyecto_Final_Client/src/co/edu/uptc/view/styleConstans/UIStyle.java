@@ -57,6 +57,7 @@ public class UIStyle {
 
     public static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 26);
     public static final Font SUBTITLE_FONT = new Font("Segoe UI", Font.BOLD, 20);
+    public static final Font SUBTITLE_FONT2 = new Font("Segoe UI", Font.BOLD, 18);
     public static final Font TEXT_FONT = new Font("Segoe UI", Font.PLAIN, 16);
     public static final Font BUTTON_FONT = new Font("Segoe UI", Font.BOLD, 14);
     public static final Font BRAND_FONT = new Font("Rockwell Extra Bold", Font.PLAIN, 20);

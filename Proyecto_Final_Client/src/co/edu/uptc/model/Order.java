@@ -19,10 +19,6 @@ public class Order {
         return idOrder;
     }
 
-    public void setIdOrder(String idOrden) {
-        this.idOrder = idOrden;
-    }
-
     public String getTable() {
         return table;
     }

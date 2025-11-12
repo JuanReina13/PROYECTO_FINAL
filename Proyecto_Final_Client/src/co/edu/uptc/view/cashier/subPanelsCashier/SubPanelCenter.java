@@ -1,6 +1,7 @@
 package co.edu.uptc.view.cashier.subPanelsCashier;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
