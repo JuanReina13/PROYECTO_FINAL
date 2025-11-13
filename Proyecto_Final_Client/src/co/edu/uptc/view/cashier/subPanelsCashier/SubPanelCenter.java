@@ -33,7 +33,7 @@ public class SubPanelCenter extends JPanel{
         sandwichesPanel = new SandwichesPanel(this);
         saladsPanel = new SaladsPanel(this);
         mexicanPanel = new MexicanPanel(this);
-        beveragesPanel = new BeveragesPanel();
+        beveragesPanel = new BeveragesPanel(this);
         cardLayout = new CardLayout();
         setBackground(UIStyle.BORDER_COLOR);
         setLayout(cardLayout);

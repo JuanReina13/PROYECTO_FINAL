@@ -1,5 +1,6 @@
 package co.edu.uptc.view.components;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FontMetrics;
@@ -30,7 +31,6 @@ public class RoundedButtonCardLayout extends JButton{
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 System.out.println("Button clicked: " + getText());
                 subPanelCenter.showPanel(cardLayoutName);
-                System.out.println("Button clicked222: " + getText());
             }
         });
     }
@@ -44,6 +44,9 @@ public class RoundedButtonCardLayout extends JButton{
         FontMetrics fm = g2.getFontMetrics();
         int x = (getWidth() - fm.stringWidth(getText())) / 2;
         int y = (getHeight() + fm.getAscent()) / 2 - 4;
+        g2.setStroke(new BasicStroke(3f));
+        g2.setColor(Color.BLACK);
+        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() -1, 30, 30);
         g2.setColor(getForeground());
         g2.drawString(getText(), x, y);
         g2.dispose();

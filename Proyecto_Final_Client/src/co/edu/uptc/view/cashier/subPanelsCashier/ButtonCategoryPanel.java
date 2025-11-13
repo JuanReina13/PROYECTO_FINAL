@@ -22,7 +22,7 @@ public class ButtonCategoryPanel extends JPanel{
 
     public ButtonCategoryPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 5));
         initComponents(subPanelCenter);
         setVisible(true);
     }

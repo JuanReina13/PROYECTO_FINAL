@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ScrollBarUI extends BasicScrollBarUI {
+
     @Override
     protected void configureScrollBarColors() {
         thumbColor = new Color(160, 160, 160);
