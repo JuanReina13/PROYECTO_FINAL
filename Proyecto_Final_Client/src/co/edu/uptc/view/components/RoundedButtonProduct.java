@@ -1,5 +1,6 @@
 package co.edu.uptc.view.components;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FontMetrics;
@@ -13,6 +14,8 @@ import javax.swing.JButton;
 
 import co.edu.uptc.model.Product;
 import co.edu.uptc.persistence.ProductRepository;
+import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
+import co.edu.uptc.view.cashier.subPanelsCashier.OrderPanels.ShoppingCart;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 public class RoundedButtonProduct extends JButton{
@@ -37,13 +40,14 @@ public class RoundedButtonProduct extends JButton{
         setForeground(UIStyle.TEXT_DARK);
         setFont(UIStyle.SUBTITLE_FONT);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+        SubPanelRight subPanelRight = new SubPanelRight();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (product != null) {
                     System.out.println("Seleccionado: " + product.getName());
-                    
+                    subPanelRight.addProductToCart(String.valueOf(product.getQuantity()), product.getName());
+                    System.out.println("Producto agregado al carrito: " + product.getName()+" Cantidad: "+product.getQuantity());
                 }
             }
         });
@@ -69,7 +73,9 @@ public class RoundedButtonProduct extends JButton{
         FontMetrics fm = g2.getFontMetrics();
         int x = (getWidth() - fm.stringWidth(getText())) / 2;
         int y = (getHeight() + fm.getAscent()) / 2 - 4;
-
+        g2.setStroke(new BasicStroke(3f));
+        g2.setColor(Color.BLACK);
+        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() -1, 30, 30);
         g2.setColor(getForeground());
         g2.drawString(getText(), x, y);
         g2.dispose();

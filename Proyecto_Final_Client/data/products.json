@@ -1,65 +1,65 @@
 [
   {
     "id": "pz-pepperoni",
-    "name": "Pizza de Pepperoni",
+    "name": "Pepperoni Pizza",
     "category": "PIZZA",
-    "price": "10.99",
+    "price": "19.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-supreme",
-    "name": "Pizza Suprema",
+    "name": "Supreme Pizzza",
     "category": "PIZZA",
-    "price": "11.99",
+    "price": "21.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-hawaiian",
-    "name": "Pizza Hawaiana",
+    "name": "Hawaiian Pizza",
     "category": "PIZZA",
-    "price": "10.99",
+    "price": "20.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-ranch",
-    "name": "Pizza Tocineta, Pollo y Ranch",
+    "name": "Chicken Bacon Ranch Pizza",
     "category": "PIZZA",
-    "price": "12.99",
+    "price": "21.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-bbq",
-    "name": "Pizza Pollo y Queso Gouda BBQ",
+    "name": "BBQ Chicken GoudaPizza",
     "category": "PIZZA",
-    "price": "12.50",
+    "price": "21.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-meatlovers",
-    "name": "Pizza Amantes de la Carne",
+    "name": "Meatlovers Pizza",
     "category": "PIZZA",
-    "price": "13.50",
+    "price": "21.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-blt",
-    "name": "Pizza Tocineta, Lechuga y Tomate",
+    "name": "BLT style Pizza",
     "category": "PIZZA",
-    "price": "11.50",
+    "price": "21.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-jalapeno",
-    "name": "Pizza Jalapeño Popper",
+    "name": "Jalapeno Popper Pizza",
     "category": "PIZZA",
-    "price": "11.99",
+    "price": "22.99",
     "note": "",
     "quantity": 1
   },
@@ -67,15 +67,15 @@
     "id": "pz-haysticks",
     "name": "Haysticks",
     "category": "PIZZA",
-    "price": "10.25",
+    "price": "10.99",
     "note": "",
     "quantity": 1
   },
   {
     "id": "pz-haysticks-cheese",
-    "name": "Haysticks con Queso",
+    "name": "Haysticks with Cheese",
     "category": "PIZZA",
-    "price": "11.25",
+    "price": "11.99",
     "note": "",
     "quantity": 1
   },
@@ -284,6 +284,102 @@
     "name": "Haystack Sandwich",
     "category": "SANDWICHES",
     "price": "10.99",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-colombiana",
+    "name": "Colombiana",
+    "category": "BEVERAGES",
+    "price": "3.50",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-manzana-postobon",
+    "name": "Manzana Postobón",
+    "category": "BEVERAGES",
+    "price": "3.50",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-coca-cola",
+    "name": "Coca-Cola",
+    "category": "BEVERAGES",
+    "price": "3.80",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-7up",
+    "name": "7UP",
+    "category": "BEVERAGES",
+    "price": "3.70",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-hit-lulo",
+    "name": "Jugo Hit Lulo",
+    "category": "BEVERAGES",
+    "price": "4.00",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-hit-mango",
+    "name": "Jugo Hit Mango",
+    "category": "BEVERAGES",
+    "price": "4.00",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-hindu-te-limon",
+    "name": "Té Hindú Limón",
+    "category": "BEVERAGES",
+    "price": "4.20",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-hindu-te-durazno",
+    "name": "Té Hindú Durazno",
+    "category": "BEVERAGES",
+    "price": "4.20",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-limon-mr-tea",
+    "name": "Mr Tea Limón",
+    "category": "BEVERAGES",
+    "price": "6.00",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-dorada-colombia-club",
+    "name": "Club Colombia Dorada",
+    "category": "BEVERAGES",
+    "price": "5.80",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-heineken",
+    "name": "Heineken",
+    "category": "BEVERAGES",
+    "price": "6.80",
+    "note": "",
+    "quantity": 1
+  },
+  {
+    "id": "Bv-stella-artois",
+    "name": "Stella Artois",
+    "category": "BEVERAGES",
+    "price": "7.80",
     "note": "",
     "quantity": 1
   }

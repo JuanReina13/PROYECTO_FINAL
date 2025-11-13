@@ -12,35 +12,35 @@ import co.edu.uptc.view.stations.ViewStation;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //MainFrame.getInstance();
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Test Orders Panel");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1200, 700);
-            frame.setLocationRelativeTo(null);
+        MainFrame.getInstance();
+        // SwingUtilities.invokeLater(() -> {
+        //     JFrame frame = new JFrame("Test Orders Panel");
+        //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //     frame.setSize(1200, 700);
+        //     frame.setLocationRelativeTo(null);
 
-            OrdersPanel ordersPanel = new OrdersPanel(null);
+        //     OrdersPanel ordersPanel = new OrdersPanel(null);
 
-            // 🧾 Añadimos tarjetas de prueba
-            for (int i = 1; i <= 8; i++) {
-                List<String> items = Arrays.asList(
-                        "1 Pizza MargaritaPizza MargaritaPizza MargaritaPizza MargaritaPizza Margarita",
-                        "2 Lasagnas|Añadir Pollo",
-                        "1 Ensalada César|Añadir Pollo,1 Pizza Margarita"
-                );
-                OrderCardPanel card = new OrderCardPanel("yo",
-                        "Cliente " + i,
-                        "10:" + (20 + i),
-                        items, true
-                );
-                ordersPanel.addOrderCard(card);
-            }
+        //     // 🧾 Añadimos tarjetas de prueba
+        //     for (int i = 1; i <= 8; i++) {
+        //         List<String> items = Arrays.asList(
+        //                 "1 Pizza MargaritaPizza MargaritaPizza MargaritaPizza MargaritaPizza Margarita",
+        //                 "2 Lasagnas|Añadir Pollo",
+        //                 "1 Ensalada César|Añadir Pollo,1 Pizza Margarita"
+        //         );
+        //         OrderCardPanel card = new OrderCardPanel("yo",
+        //                 "Cliente " + i,
+        //                 "10:" + (20 + i),
+        //                 items, true
+        //         );
+        //         ordersPanel.addOrderCard(card);
+        //     }
 
-            ViewStation station = new ViewStation("Estación de Cocina", new ControllerStation("yo"));
-            station.setDownPanel(ordersPanel);
+        //     ViewStation station = new ViewStation("Estación de Cocina", new ControllerStation("yo"));
+        //     station.setDownPanel(ordersPanel);
 
-            frame.setContentPane(station);
-            frame.setVisible(true);
-        });
+        //     frame.setContentPane(station);
+        //     frame.setVisible(true);
+        // });
     }
 }
