@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import co.edu.uptc.controller.ControllerStation;
+import co.edu.uptc.model.Order;
 import co.edu.uptc.view.components.ScrollBarUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
@@ -26,6 +28,7 @@ public class OrdersPanel extends JPanel {
     public OrdersPanel(ControllerStation controllerStation) {
         orderCards = new ArrayList<>();
         this.controllerStation = controllerStation;
+        controllerStation.requestOrders();
         setLayout(new BorderLayout());
         setBackground(UIStyle.TEXT_COLOR);
         initComponents();
@@ -76,5 +79,24 @@ public class OrdersPanel extends JPanel {
         }
         ordersContainer.revalidate();
         ordersContainer.repaint();
+    }
+
+    public void loadOrders(List<Order> orders) {
+        orderCards.clear();
+        for (Order o : orders) {
+            List<String> items = o.getProducts().stream()
+                    .map(p -> p.getQuantity() + "x " + p.getName())
+                    .collect(Collectors.toList());
+
+            OrderCardPanel card = new OrderCardPanel(
+                    o.getIdOrder(),
+                    o.getTable(),
+                    o.getTime(),
+                    items,
+                    true,
+                    controllerStation);
+            orderCards.add(card);
+        }
+        showOrders();
     }
 }
