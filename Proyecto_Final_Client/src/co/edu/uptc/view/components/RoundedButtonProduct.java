@@ -14,7 +14,6 @@ import javax.swing.JButton;
 
 import co.edu.uptc.model.Product;
 import co.edu.uptc.persistence.ProductRepository;
-import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.cashier.subPanelsCashier.OrderPanels.ShoppingCart;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
@@ -22,9 +21,10 @@ public class RoundedButtonProduct extends JButton{
 
     private Color backgroundColor;
     private Product product;
-
-    public RoundedButtonProduct(String productName, Color backgroundColor) {
+    private ShoppingCart shoppingCart;
+    public RoundedButtonProduct(String productName, Color backgroundColor, ShoppingCart shoppingCart) {
         this.backgroundColor = backgroundColor;
+        this.shoppingCart = shoppingCart;
         this.product = findProduct(productName);
 
         if (product != null) {
@@ -40,14 +40,12 @@ public class RoundedButtonProduct extends JButton{
         setForeground(UIStyle.TEXT_DARK);
         setFont(UIStyle.SUBTITLE_FONT);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        SubPanelRight subPanelRight = new SubPanelRight();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (product != null) {
                     System.out.println("Seleccionado: " + product.getName());
-                    subPanelRight.addProductToCart(String.valueOf(product.getQuantity()), product.getName());
-                    System.out.println("Producto agregado al carrito: " + product.getName()+" Cantidad: "+product.getQuantity());
+                    shoppingCart.addProduct(1, product.getName(), product.getPrice());
                 }
             }
         });

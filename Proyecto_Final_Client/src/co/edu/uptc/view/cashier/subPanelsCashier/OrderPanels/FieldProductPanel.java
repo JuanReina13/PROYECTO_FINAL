@@ -32,7 +32,14 @@ public class FieldProductPanel extends JPanel {
     private JTextPane textPane;
     private JScrollPane scrollPane;
 
-    public FieldProductPanel(String number, String name) {
+    private String productName;
+    public double unitPrice;
+
+    private JLabel priceLabel;
+
+    public FieldProductPanel(String number, String name, double unitPrice) {
+        this.productName = name;
+        this.unitPrice = unitPrice;
         setLayout(null);
         setOpaque(false);
         setPreferredSize(new Dimension(330, 120));
@@ -55,6 +62,12 @@ public class FieldProductPanel extends JPanel {
         nameLabel.setFont(UIStyle.SUBTITLE_FONT2);
         nameLabel.setBounds(60, 15, 150, 25);
         add(nameLabel);
+
+        priceLabel = new JLabel();
+        priceLabel.setFont(UIStyle.SUBTITLE_FONT);
+        priceLabel.setBounds(200, 15, 120, 25);
+        updatePriceLabel();
+        add(priceLabel);
     }
 
     private void addCloseButton() {
@@ -68,17 +81,32 @@ public class FieldProductPanel extends JPanel {
         closeButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
+                int currentQuantity = getQuantity();
+
+                if (currentQuantity > 1) {
+                    setQuantity(String.valueOf(currentQuantity - 1));
+                    
+                } else {
+                    Container parent = FieldProductPanel.this.getParent();
+                    if (parent != null) {
+                        parent.remove(FieldProductPanel.this);
+                        parent.revalidate();
+                        parent.repaint();
+                    }
+                if (parent instanceof ShoppingCart) {
+                    ((ShoppingCart) parent).updateCartTotal();
+                }
+                }
+
+                // 🔥 Notificar al carrito para recalcular el total
                 Container parent = FieldProductPanel.this.getParent();
-                if (parent != null) {
-                    parent.remove(FieldProductPanel.this);
-                    parent.revalidate();
-                    parent.repaint();
+                if (parent instanceof ShoppingCart) {
+                    ((ShoppingCart) parent).updateCartTotal();
                 }
             }
         });
         add(closeButton);
     }
-
 
     private void addScrollTextPane() {
         textPane = new JTextPane();
@@ -93,6 +121,12 @@ public class FieldProductPanel extends JPanel {
         add(scrollPane);
     }
 
+    private void updatePriceLabel() {
+        int qty = getQuantity();
+        double total = qty * unitPrice;
+        priceLabel.setText(String.format("$ %.2f", total));
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -105,11 +139,32 @@ public class FieldProductPanel extends JPanel {
         g2.dispose();
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setQuantity(String number) {
+        numberLabel.setText(number);
+        updatePriceLabel();
+    }
+
+    public int getQuantity() {
+        return Integer.parseInt(numberLabel.getText());
+    }
+
     public JTextPane getTextPane() {
         return textPane;
     }
 
     public JButton getCloseButton() {
         return closeButton;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

@@ -42,7 +42,6 @@ public class InfoPanel extends JPanel {
         addJLabel(stationName);
 
         add(Box.createHorizontalGlue());
-        // add(Box.createHorizontalStrut(500));
         openButton = createButton(orderCount + "   Ordenes", new Dimension(150, 50));
         openButtonAction();
         openButton.setBackground(UIStyle.SECONDARY_COLOR);
