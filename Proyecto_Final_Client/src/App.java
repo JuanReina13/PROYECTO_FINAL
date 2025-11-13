@@ -1,46 +1,48 @@
-import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import co.edu.uptc.controller.ControllerCashier;
 import co.edu.uptc.controller.ControllerStation;
+import co.edu.uptc.model.Order;
+import co.edu.uptc.model.Product;
 import co.edu.uptc.view.MainFrame;
-import co.edu.uptc.view.stations.OrderCardPanel;
-import co.edu.uptc.view.stations.OrdersPanel;
 import co.edu.uptc.view.stations.ViewStation;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        //MainFrame.getInstance();
+
+        ControllerStation controller = new ControllerStation("MainKitchen");
+        controller.start();
+        ControllerCashier controllerCashier = new ControllerCashier();
+
         MainFrame.getInstance();
-        // SwingUtilities.invokeLater(() -> {
-        //     JFrame frame = new JFrame("Test Orders Panel");
-        //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //     frame.setSize(1200, 700);
-        //     frame.setLocationRelativeTo(null);
 
-        //     OrdersPanel ordersPanel = new OrdersPanel(null);
+        // Esperar a que el socket se conecte
+        try {
+            Thread.sleep(5000);
+        } catch (Exception ignored) {
+        }
 
-        //     // 🧾 Añadimos tarjetas de prueba
-        //     for (int i = 1; i <= 8; i++) {
-        //         List<String> items = Arrays.asList(
-        //                 "1 Pizza MargaritaPizza MargaritaPizza MargaritaPizza MargaritaPizza Margarita",
-        //                 "2 Lasagnas|Añadir Pollo",
-        //                 "1 Ensalada César|Añadir Pollo,1 Pizza Margarita"
-        //         );
-        //         OrderCardPanel card = new OrderCardPanel("yo",
-        //                 "Cliente " + i,
-        //                 "10:" + (20 + i),
-        //                 items, true
-        //         );
-        //         ordersPanel.addOrderCard(card);
-        //     }
+        // 3️⃣ Crear orden de prueba
+        Order order = new Order();
+        order.setIdOrder(UUID.randomUUID().toString());
+        order.setTable("Mesa 12");
+        order.setTime(System.currentTimeMillis() + "");
+        order.setReady(false);
 
-        //     ViewStation station = new ViewStation("Estación de Cocina", new ControllerStation("yo"));
-        //     station.setDownPanel(ordersPanel);
+        order.setProducts(List.of(
+                new Product("1","Supreme Pizza", "PIZZA", 15.99, 1, "")));
 
-        //     frame.setContentPane(station);
-        //     frame.setVisible(true);
-        // });
+        order.setCategoriesInvolved(List.of(
+                "PIZZA"
+                ));
+
+        controllerCashier.sendNewOrder(order);
+
+        System.out.println("📤 Orden de prueba enviada al servidor.");
     }
 }

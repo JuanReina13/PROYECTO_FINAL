@@ -8,13 +8,23 @@ public class Order {
     private String idOrder;
     private String table;
     private List<Product> products;
-    private long time;
+    private String time;
+    private boolean isReady;
+    private List<String> categoriesInvolved;
+    private List<String> categories;
 
-    public Order(String table, List<Product> products, long time) {
+    public Order(String table, List<Product> products, String time) {
         this.idOrder = UUID.randomUUID().toString();;
         this.table = table;
         this.products = products;
         this.time = time;
+    }
+
+    public Order() {
+    }
+
+    public void setIdOrder(String idOrder){
+        this.idOrder = idOrder;
     }
 
     public String getIdOrder() {
@@ -37,11 +47,35 @@ public class Order {
         this.products = products;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean isReady) {
+        this.isReady = isReady;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public List<String> getCategoriesInvolved() {
+        return categoriesInvolved;
+    }
+
+    public void setCategoriesInvolved(List<String> categoriesInvolved) {
+        this.categoriesInvolved = categoriesInvolved;
     }
 }

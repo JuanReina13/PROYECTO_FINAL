@@ -5,16 +5,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
 import co.edu.uptc.model.Product;
+import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.stations.OrderCardPanel;
-import co.edu.uptc.view.stations.RecordPanel;
 import co.edu.uptc.view.stations.ViewStation;
 
 import java.net.Socket;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,9 +67,8 @@ public class ControllerStation {
                                             productStrings.add(p.getQuantity() + "x " + p.getName());
                                         }
                                         OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
-                                                String.format("%02d:%02d", LocalTime.now().getHour(),
-                                                        LocalTime.now().getMinute()),
-                                                productStrings, true);
+                                                order.getTime(), productStrings, true, this);                                       
+                                        viewStation.getOrdersPanel().addOrderCard(card);
                                     }
                                 });
                                 break;
@@ -137,6 +134,22 @@ public class ControllerStation {
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());
         }
+    }
+
+    public List<OrderViewData> getOrderHistoryViewData() {
+        if (orderHistory == null) {
+            return new ArrayList<>();
+        }
+
+        return orderHistory.stream()
+                .map(order -> new OrderViewData(
+                        order.getIdOrder(),
+                        order.getTable(),
+                        order.getTime(),
+                        order.getProducts().stream()
+                                .map(p -> p.getQuantity() + "x " + p.getName())
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
     }
 
     public void stop() {

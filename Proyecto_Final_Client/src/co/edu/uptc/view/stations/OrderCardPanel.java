@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import co.edu.uptc.controller.ControllerStation;
 import co.edu.uptc.view.components.RoundedPanelUI;
 import co.edu.uptc.view.components.ScrollBarUI;
-import co.edu.uptc.view.components.ShapedButtonUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 import java.awt.*;
@@ -21,9 +20,8 @@ public class OrderCardPanel extends RoundedPanelUI {
     ControllerStation controllerStation;
     private boolean isActive;
     private String orderId;
-    private Consumer<String> onConfirmOrder;
 
-    public OrderCardPanel(String ordenId, String table, String time, List<String> products, boolean isActive) {
+    public OrderCardPanel(String ordenId, String table, String time, List<String> products, boolean isActive, ControllerStation controllerStation) {
         super(UIStyle.BACKGROUND, 20);
         this.isActive = isActive;
         this.orderId = orderId;
@@ -93,9 +91,7 @@ public class OrderCardPanel extends RoundedPanelUI {
 
         // Acción: confirmar orden
         btnConfirm.addActionListener(e -> {
-            if (onConfirmOrder != null) {
-                onConfirmOrder.accept(orderId); 
-            }
+            controllerStation.sendFinishOrderById(orderId);
             restoreHeader(headerPanel, table, time, color);
         });
 

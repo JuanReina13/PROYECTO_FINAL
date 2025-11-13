@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import co.edu.uptc.controller.ControllerStation;
-import co.edu.uptc.model.Order;
+import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.components.ScrollBarUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
@@ -79,25 +78,26 @@ public class RecordPanel extends JPanel {
     }
 
     private List<OrderCardPanel> convertToOrderCards() {
-        List<OrderCardPanel> orderCards = new ArrayList<>();
-        List<Order> orders = controllerStation.getOrderHistory();
-        for (Order order : orders) {
-            List<String> productStrings = order.getProducts().stream()
-                    .map(p -> p.getQuantity() + "x " + p.getName())
-                    .collect(Collectors.toList());
+    List<OrderCardPanel> orderCards = new ArrayList<>();
+    List<OrderViewData> orders = controllerStation.getOrderHistoryViewData();
 
-            OrderCardPanel card = new OrderCardPanel(order.getIdOrder(),
-                    order.getTable(),
-                    formatTime(order.getTime()),
-                    productStrings, false);
-
-            orderCards.add(card);
-        }
-        return orderCards;
+    for (OrderViewData data : orders) {
+        OrderCardPanel card = new OrderCardPanel(
+                data.idOrder(),
+                data.table(),
+                formatTime(data.time()),
+                data.products(),
+                false,
+                controllerStation
+        );
+        orderCards.add(card);
     }
 
-    private String formatTime(long timestamp) {
-        Instant instant = Instant.ofEpochMilli(timestamp);
+    return orderCards;
+}
+
+    private String formatTime(String timestamp) {
+        Instant instant = Instant.ofEpochMilli(Long.parseLong(timestamp));
         LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
         return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }
