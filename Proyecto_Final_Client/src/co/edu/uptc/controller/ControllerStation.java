@@ -67,7 +67,8 @@ public class ControllerStation {
                                             productStrings.add(p.getQuantity() + "x " + p.getName());
                                         }
                                         OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
-                                                order.getTime(), productStrings, true, this);                                       
+                                                order.getTime(), productStrings, true, this);
+                                        viewStation.getInfoPanel().addOrderCount();
                                         viewStation.getOrdersPanel().addOrderCard(card);
                                     }
                                 });
@@ -80,6 +81,21 @@ public class ControllerStation {
                                 viewStation.getInfoPanel().removeOrderCount();
 
                                 break;
+
+                            case "ORDERS":
+                                String ordersJSon = input.readUTF();
+                                Order[] activeOrders = gson.fromJson(ordersJSon, Order[].class);
+                                orderList.clear();
+                                orderList.addAll(Arrays.asList(activeOrders));
+                                System.out.println("Ordenes recibidas: " + orderList.size() + " órdenes");
+                                SwingUtilities.invokeLater(() -> {
+                                    if (viewStation != null) {
+                                        viewStation.getOrdersPanel().loadOrders(orderList);
+                                        viewStation.showOrdersPanel();
+                                    }
+                                });
+                                break;
+
                             case "HISTORY":
                                 String historyJson = input.readUTF();
                                 Order[] orders = gson.fromJson(historyJson, Order[].class);
@@ -122,14 +138,28 @@ public class ControllerStation {
     }
 
     public void sendFinishOrderById(String orderId) {
-        orderList.stream()
-                .filter(o -> o.getIdOrder().equals(orderId))
-                .findFirst().ifPresent(this::sendFinishOrder);
+        for (Order order : orderList) {
+            if (order.getIdOrder().equals(orderId)) {
+                sendFinishOrder(order);
+                orderList.remove(order);
+                break;
+            }
+        }
     }
 
     public void requestHistory() {
         try {
             output.writeUTF("GET_HISTORY");
+            output.writeUTF(stationName);
+            output.flush();
+        } catch (IOException e) {
+            System.out.println("Error al solicitar el historial: " + e.getMessage());
+        }
+    }
+
+    public void requestOrders() {
+        try {
+            output.writeUTF("GET_ORDERS");
             output.flush();
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());
