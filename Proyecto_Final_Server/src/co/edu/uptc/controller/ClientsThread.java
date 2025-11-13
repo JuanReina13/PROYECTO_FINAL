@@ -69,13 +69,7 @@ public class ClientsThread extends Thread {
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        if (station != null) {
-                            station.setClientOutput(dataOutput);
-                            System.out.println("Estación registrada: " + stationName);
-                        } else {
-                            System.out.println("Estación no encontrada: " + stationName);
-                        }
-                    
+                        station.setClientOutput(dataOutput);
                         break;
 
                     case "EXIT":
