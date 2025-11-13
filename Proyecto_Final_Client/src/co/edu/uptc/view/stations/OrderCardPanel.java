@@ -4,9 +4,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import java.awt.event.MouseEvent;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
 
 import co.edu.uptc.controller.ControllerStation;
 import co.edu.uptc.view.components.RoundedPanelUI;
@@ -16,6 +13,7 @@ import co.edu.uptc.view.styleConstans.UIStyle;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class OrderCardPanel extends RoundedPanelUI {
 
@@ -32,7 +30,7 @@ public class OrderCardPanel extends RoundedPanelUI {
         setPreferredSize(new Dimension(300, 400));
         setMaximumSize(new Dimension(260, Integer.MAX_VALUE));
 
-        initComponents(table, formatTime(time), products);
+        initComponents(table, time, products);
     }
 
     private void initComponents(String table, String time, List<String> products) {
@@ -200,11 +198,5 @@ public class OrderCardPanel extends RoundedPanelUI {
         scrollPane.getVerticalScrollBar().setUI(new ScrollBarUI());
 
         add(scrollPane, BorderLayout.CENTER);
-    }
-
-    private String formatTime(String timestamp) {
-        Instant instant = Instant.ofEpochMilli(Long.parseLong(timestamp));
-        LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
-        return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }
 }

@@ -48,10 +48,6 @@ public class ViewStation extends JPanel {
         });
     }
 
-    public void showOrdersPanel() {
-        setDownPanel(ordersPanel);
-    }
-
     public void showHistoryPanel() {
         setDownPanel(new RecordPanel(controllerStation));
     }
