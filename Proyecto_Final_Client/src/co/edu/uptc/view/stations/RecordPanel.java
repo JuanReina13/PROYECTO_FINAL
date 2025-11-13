@@ -2,7 +2,6 @@ package co.edu.uptc.view.stations;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -87,7 +86,7 @@ public class RecordPanel extends JPanel {
                     .map(p -> p.getQuantity() + "x " + p.getName())
                     .collect(Collectors.toList());
 
-            OrderCardPanel card = new OrderCardPanel(
+            OrderCardPanel card = new OrderCardPanel(order.getIdOrder(),
                     order.getTable(),
                     formatTime(order.getTime()),
                     productStrings, false);

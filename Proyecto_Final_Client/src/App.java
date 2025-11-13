@@ -28,7 +28,7 @@ public class App {
                         "2 Lasagnas|Añadir Pollo",
                         "1 Ensalada César|Añadir Pollo,1 Pizza Margarita"
                 );
-                OrderCardPanel card = new OrderCardPanel(
+                OrderCardPanel card = new OrderCardPanel("yo",
                         "Cliente " + i,
                         "10:" + (20 + i),
                         items, true

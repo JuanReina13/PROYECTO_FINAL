@@ -16,9 +16,9 @@ public class UIStyle {
     public static final Color TEXT_COLOR = Color.DARK_GRAY;
 
     private static final List<Color> HEADER_COLORS = List.of(
-            new Color(220, 53, 69),   // Rojo
+            new Color(139, 0, 0),   // Rojo
             new Color(0, 123, 255),   // Azul
-            new Color(40, 167, 69),   // Verde
+            new Color(46, 125, 50),   // Verde
             new Color(111, 66, 193),  // Morado
             new Color(23, 162, 184)   // Cian
     );

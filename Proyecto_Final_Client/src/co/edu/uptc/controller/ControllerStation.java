@@ -5,15 +5,20 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
+import co.edu.uptc.model.Product;
+import co.edu.uptc.view.stations.OrderCardPanel;
 import co.edu.uptc.view.stations.RecordPanel;
 import co.edu.uptc.view.stations.ViewStation;
 
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
 
@@ -56,8 +61,19 @@ public class ControllerStation {
                                 String json = input.readUTF();
                                 Order order = gson.fromJson(json, Order.class);
                                 orderList.add(order);
-                                viewStation.getInfoPanel().addOrderCount();
-
+                                SwingUtilities.invokeLater(() -> {
+                                    if (viewStation != null) {
+                                        viewStation.getInfoPanel().addOrderCount();
+                                        List<String> productStrings = new ArrayList<>();
+                                        for (Product p : order.getProducts()) {
+                                            productStrings.add(p.getQuantity() + "x " + p.getName());
+                                        }
+                                        OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
+                                                String.format("%02d:%02d", LocalTime.now().getHour(),
+                                                        LocalTime.now().getMinute()),
+                                                productStrings, true);
+                                    }
+                                });
                                 break;
 
                             case "ORDER_FINISHED":
@@ -106,6 +122,12 @@ public class ControllerStation {
         } catch (IOException e) {
             System.out.println("Error al enviar FINISH_ORDER: " + e.getMessage());
         }
+    }
+
+    public void sendFinishOrderById(String orderId) {
+        orderList.stream()
+                .filter(o -> o.getIdOrder().equals(orderId))
+                .findFirst().ifPresent(this::sendFinishOrder);
     }
 
     public void requestHistory() {

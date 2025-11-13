@@ -5,21 +5,29 @@ import javax.swing.border.*;
 
 import java.awt.event.MouseEvent;
 
+import co.edu.uptc.controller.ControllerStation;
 import co.edu.uptc.view.components.RoundedPanelUI;
 import co.edu.uptc.view.components.ScrollBarUI;
+import co.edu.uptc.view.components.ShapedButtonUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class OrderCardPanel extends RoundedPanelUI {
 
+    ControllerStation controllerStation;
     private boolean isActive;
+    private String orderId;
+    private Consumer<String> onConfirmOrder;
 
-    public OrderCardPanel(String table, String time, List<String> products, boolean isActive) {
+    public OrderCardPanel(String ordenId, String table, String time, List<String> products, boolean isActive) {
         super(UIStyle.BACKGROUND, 20);
         this.isActive = isActive;
+        this.orderId = orderId;
+        this.controllerStation = controllerStation;
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 400));
         setMaximumSize(new Dimension(260, Integer.MAX_VALUE));
@@ -80,26 +88,24 @@ public class OrderCardPanel extends RoundedPanelUI {
         headerPanel.removeAll();
         headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        JButton btnConfirm = createIconButton("✓", new Color(0, 200, 83)); // Verde
-        JButton btnCancel = createIconButton("✕", new Color(229, 57, 53)); // Rojo
+        JButton btnConfirm = addButton("resources/buttons_Images/Check.png", 55, 55);
+        JButton btnCancel = addButton("resources/buttons_Images/Cancel.png", 55, 55);
 
         // Acción: confirmar orden
         btnConfirm.addActionListener(e -> {
-            // Aquí podrías notificar al ControllerStation
-            // controllerStation.sendFinishOrder(order);
-
+            if (onConfirmOrder != null) {
+                onConfirmOrder.accept(orderId); 
+            }
             restoreHeader(headerPanel, table, time, color);
         });
 
-        // Acción: cancelar confirmación
         btnCancel.addActionListener(e -> restoreHeader(headerPanel, table, time, color));
 
         headerPanel.add(btnConfirm);
-        headerPanel.add(btnCancel); 
+        headerPanel.add(btnCancel);
         headerPanel.revalidate();
         headerPanel.repaint();
     }
-
 
     private void restoreHeader(RoundedPanelUI headerPanel, String table, String time, Color color) {
         headerPanel.removeAll();
@@ -123,16 +129,17 @@ public class OrderCardPanel extends RoundedPanelUI {
         headerPanel.repaint();
     }
 
-    private JButton createIconButton(String symbol, Color bgColor) {
-        JButton button = new JButton(symbol);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        button.setForeground(Color.WHITE);
-        button.setBackground(bgColor);
+    private JButton addButton(String text, int width, int height) {
+        ImageIcon icon = new ImageIcon(text);
+        JButton button = new JButton(
+                new ImageIcon(icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH)));
+        button.setPreferredSize(new Dimension(width, height));
+        button.setMaximumSize(new Dimension(width, height));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // button.setUI(new ShapedButtonUI());
+        button.setBorderPainted(false);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
-        button.setPreferredSize(new Dimension(50, 35));
+        button.setContentAreaFilled(false);
         return button;
     }
 
