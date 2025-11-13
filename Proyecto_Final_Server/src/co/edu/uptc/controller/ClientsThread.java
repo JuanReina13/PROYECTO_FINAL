@@ -3,7 +3,6 @@ package co.edu.uptc.controller;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -41,15 +40,7 @@ public class ClientsThread extends Thread {
                         String orderJson = dataInput.readUTF();
                         Order order = gson.fromJson(orderJson, Order.class);
                         restaurantManager.addOrder(order);
-
-                        break;
-
-                    case "GET_ORDERS":
-                        String stationName2 = dataInput.readUTF();
-                        Station requestingStation = restaurantManager.findStationByName(stationName2);
-                        List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
-                        dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(gson.toJson(filteredOrders));
+                        
                         break;
 
                     case "GET_HISTORY":
@@ -69,13 +60,8 @@ public class ClientsThread extends Thread {
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        if (station != null) {
-                            station.setClientOutput(dataOutput);
-                            System.out.println("Estación registrada: " + stationName);
-                        } else {
-                            System.out.println("Estación no encontrada: " + stationName);
-                        }
-                    
+                        station.setClientOutput(dataOutput);
+                        System.out.println("Estación registrada: " + stationName);
                         break;
 
                     case "EXIT":

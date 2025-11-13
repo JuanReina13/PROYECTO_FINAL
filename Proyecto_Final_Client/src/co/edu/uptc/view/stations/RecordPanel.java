@@ -78,20 +78,27 @@ public class RecordPanel extends JPanel {
     }
 
     private List<OrderCardPanel> convertToOrderCards() {
-        List<OrderCardPanel> orderCards = new ArrayList<>();
-        List<OrderViewData> orders = controllerStation.getOrderHistoryViewData();
+    List<OrderCardPanel> orderCards = new ArrayList<>();
+    List<OrderViewData> orders = controllerStation.getOrderHistoryViewData();
 
-        for (OrderViewData data : orders) {
-            OrderCardPanel card = new OrderCardPanel(
-                    data.idOrder(),
-                    data.table(),
-                    data.time(),
-                    data.products(),
-                    false,
-                    controllerStation);
-            orderCards.add(card);
-        }
+    for (OrderViewData data : orders) {
+        OrderCardPanel card = new OrderCardPanel(
+                data.idOrder(),
+                data.table(),
+                formatTime(data.time()),
+                data.products(),
+                false,
+                controllerStation
+        );
+        orderCards.add(card);
+    }
 
-        return orderCards;
+    return orderCards;
+}
+
+    private String formatTime(String timestamp) {
+        Instant instant = Instant.ofEpochMilli(Long.parseLong(timestamp));
+        LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
+        return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }
 }
