@@ -61,10 +61,7 @@ public class ClientsThread extends Thread {
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
                         station.setClientOutput(dataOutput);
-<<<<<<< HEAD
                         System.out.println("Estación registrada: " + stationName);
-=======
->>>>>>> parent of 0168b89 (Revert "GGS2")
                         break;
 
                     case "EXIT":

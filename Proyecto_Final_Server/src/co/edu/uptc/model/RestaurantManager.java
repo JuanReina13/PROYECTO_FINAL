@@ -20,8 +20,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class RestaurantManager {
 
-    private final String ACTIVE_FILE_PATH = "data/orders.json";
-    private final String RECORD_FILE_PATH = "data/records.json";
+    private final String ACTIVE_FILE_PATH = "data/orders.json";     
+    private final String RECORD_FILE_PATH = "data/records.json"; 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private List<Station> stations;
     private Queue<Order> orderQueue;
@@ -54,15 +54,12 @@ public class RestaurantManager {
     }
 
     public Station findStationByName(String name) {
-        Station station;
-        if (name.equalsIgnoreCase("MainKitchen")) {
-            station = stations.get(0);
-        } else if (name.equalsIgnoreCase("Pizza")) {
-            station = stations.get(1);
-        } else {
-            station = stations.get(2);
+        for (Station s : stations) {
+            if (s.getName().equalsIgnoreCase(name)) {
+                return s;
+            }
         }
-        return station;
+        return null;
     }
 
     public void addOrder(Order order) {
@@ -88,15 +85,15 @@ public class RestaurantManager {
         while (iterator.hasNext()) {
             Order o = iterator.next();
             if (o.getIdOrder().equalsIgnoreCase(order.getIdOrder())) {
-                iterator.remove();
-                orderStack.push(o);
+                iterator.remove(); 
+                orderStack.push(o);         
                 notifyStations(order, order.getCategoriesInvolved());
                 break;
             }
         }
 
-        saveOrdersToFile();
-        saveRecordsToFile();
+        saveOrdersToFile();   
+        saveRecordsToFile();    
     }
 
     private void notifyStations(Order order, List<ProductCategory> categories) {
@@ -156,12 +153,10 @@ public class RestaurantManager {
 
     private Queue<Order> loadOrdersFromFile(String filePath) {
         File file = new File(filePath);
-        if (!file.exists())
-            return new LinkedList<>();
+        if (!file.exists()) return new LinkedList<>();
 
         try (Reader reader = new FileReader(file)) {
-            Type queueType = new TypeToken<Queue<Order>>() {
-            }.getType();
+            Type queueType = new TypeToken<Queue<Order>>() {}.getType();
             Queue<Order> loaded = gson.fromJson(reader, queueType);
             return (loaded != null) ? loaded : new LinkedList<>();
         } catch (IOException e) {
@@ -172,12 +167,10 @@ public class RestaurantManager {
 
     private Stack<Order> loadOrdersFromStack(String filePath) {
         File file = new File(filePath);
-        if (!file.exists())
-            return new Stack<>();
+        if (!file.exists()) return new Stack<>();
 
         try (Reader reader = new FileReader(file)) {
-            Type stackType = new TypeToken<Stack<Order>>() {
-            }.getType();
+            Type stackType = new TypeToken<Stack<Order>>() {}.getType();
             Stack<Order> loaded = gson.fromJson(reader, stackType);
             return (loaded != null) ? loaded : new Stack<>();
         } catch (IOException e) {
