@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -23,19 +22,19 @@ public class SaladsPanel extends JPanel{
     private RoundedButtonProduct btnCobb;
     private RoundedButtonProduct btnMediterranean;
 
-    public SaladsPanel(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    public SaladsPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        initComponents(subPanelCenter, subPanelRight);
+        initComponents(subPanelCenter);
         setVisible(true);
     }
 
-    private void initComponents(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnCaesar = new RoundedButtonProduct("sd-caesar", UIStyle.P7,subPanelRight.getShoppingCart());
-        btnChef = new RoundedButtonProduct("sd-chef", UIStyle.P4,subPanelRight.getShoppingCart());
-        btnCobb = new RoundedButtonProduct("sd-cobb", UIStyle.P8,subPanelRight.getShoppingCart());
-        btnMediterranean = new RoundedButtonProduct("sd-mediterranean", UIStyle.P6,subPanelRight.getShoppingCart());
+        btnCaesar = new RoundedButtonProduct("sd-caesar", UIStyle.P7);
+        btnChef = new RoundedButtonProduct("sd-chef", UIStyle.P4);
+        btnCobb = new RoundedButtonProduct("sd-cobb", UIStyle.P8);
+        btnMediterranean = new RoundedButtonProduct("sd-mediterranean", UIStyle.P6);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

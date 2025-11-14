@@ -52,7 +52,7 @@ public class RoundedButton extends JButton{
         int textY = (getHeight() + fm.getAscent()) / 2 - 3;
         g2.setStroke(new BasicStroke(3f));
         g2.setColor(Color.BLACK);
-        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight()- 1, 10, 10);
+        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() -1, 10, 10);
         g2.setColor(getForeground());
         g2.drawString(text, textX, textY);
 

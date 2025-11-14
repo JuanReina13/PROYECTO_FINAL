@@ -25,15 +25,15 @@ public class SubPanelCenter extends JPanel{
     private BeveragesPanel  beveragesPanel;
     private CardLayout cardLayout;
 
-    public SubPanelCenter(SubPanelRight subPanelRight) {
+    public SubPanelCenter() {
         buttonCategoryPanel = new ButtonCategoryPanel(this);
-        pizzasPanel = new PizzasPanel(this, subPanelRight);
-        burguersPanel = new BurguersPanel(this,subPanelRight);
-        hotDogsPanel = new HotDogsPanel(this, subPanelRight);
-        sandwichesPanel = new SandwichesPanel(this, subPanelRight);
-        saladsPanel = new SaladsPanel(this, subPanelRight);
-        mexicanPanel = new MexicanPanel(this, subPanelRight);
-        beveragesPanel = new BeveragesPanel(this, subPanelRight);
+        pizzasPanel = new PizzasPanel(this);
+        burguersPanel = new BurguersPanel(this);
+        hotDogsPanel = new HotDogsPanel(this);
+        sandwichesPanel = new SandwichesPanel(this);
+        saladsPanel = new SaladsPanel(this);
+        mexicanPanel = new MexicanPanel(this);
+        beveragesPanel = new BeveragesPanel(this);
         cardLayout = new CardLayout();
         setBackground(UIStyle.BORDER_COLOR);
         setLayout(cardLayout);

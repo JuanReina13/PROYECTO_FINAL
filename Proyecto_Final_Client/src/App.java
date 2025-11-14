@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import co.edu.uptc.view.MainFrame;
 =======
+=======
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +21,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         MainFrame.getInstance();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
         // SwingUtilities.invokeLater(() -> {
         //     JFrame frame = new JFrame("Test Orders Panel");
         //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +54,9 @@ public class App {
         //     frame.setContentPane(station);
         //     frame.setVisible(true);
         // });
+<<<<<<< HEAD
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
     }
 }

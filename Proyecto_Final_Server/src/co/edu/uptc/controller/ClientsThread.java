@@ -44,6 +44,7 @@ public class ClientsThread extends Thread {
                         Order order = gson.fromJson(orderJson, Order.class);
                         restaurantManager.addOrder(order);
 <<<<<<< HEAD
+<<<<<<< HEAD
                         System.out.println("✅ Orden agregada: " + order.getIdOrder());
                         break;
 
@@ -61,6 +62,9 @@ public class ClientsThread extends Thread {
 =======
                         dataOutput.writeUTF("Orden recibida correctamente");
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+                        dataOutput.writeUTF("Orden recibida correctamente");
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
                         break;
 
                     case "GET_HISTORY":

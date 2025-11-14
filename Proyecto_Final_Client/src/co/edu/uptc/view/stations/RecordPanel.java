@@ -81,6 +81,7 @@ public class RecordPanel extends JPanel {
     private List<OrderCardPanel> convertToOrderCards() {
         List<OrderCardPanel> orderCards = new ArrayList<>();
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<OrderViewData> orders = controllerStation.getOrderHistoryViewData();
 
         for (OrderViewData data : orders) {
@@ -119,6 +120,26 @@ public class RecordPanel extends JPanel {
     private String formatTime(long timestamp) {
         Instant instant = Instant.ofEpochMilli(timestamp);
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+        List<Order> orders = controllerStation.getOrderHistory();
+        for (Order order : orders) {
+            List<String> productStrings = order.getProducts().stream()
+                    .map(p -> p.getQuantity() + "x " + p.getName())
+                    .collect(Collectors.toList());
+
+            OrderCardPanel card = new OrderCardPanel(order.getIdOrder(),
+                    order.getTable(),
+                    formatTime(order.getTime()),
+                    productStrings, false);
+
+            orderCards.add(card);
+        }
+        return orderCards;
+    }
+
+    private String formatTime(long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
         LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
         return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }

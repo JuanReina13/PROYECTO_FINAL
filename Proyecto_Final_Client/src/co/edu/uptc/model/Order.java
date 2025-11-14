@@ -9,12 +9,16 @@ public class Order {
     private String table;
     private List<Product> products;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String time;
     private boolean isReady;
     private List<String> categoriesInvolved;
 =======
     private long time;
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+    private long time;
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
 
     public Order(String table, List<Product> products, long time) {
         this.idOrder = UUID.randomUUID().toString();;
@@ -51,6 +55,7 @@ public class Order {
         this.time = time;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public boolean isReady() {
         return isReady;
@@ -69,4 +74,6 @@ public class Order {
     }
 =======
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
 }

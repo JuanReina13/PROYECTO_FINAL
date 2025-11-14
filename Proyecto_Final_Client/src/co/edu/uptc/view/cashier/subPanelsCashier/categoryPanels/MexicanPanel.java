@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -25,21 +24,21 @@ public class MexicanPanel extends JPanel{
     private RoundedButtonProduct btnBltQuesadilla;
     private RoundedButtonProduct btnBuildYourOwn;
 
-    public MexicanPanel(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    public MexicanPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        initComponents(subPanelCenter, subPanelRight);
+        initComponents(subPanelCenter);
         setVisible(true);
     }
 
-    private void initComponents(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    private void initComponents(SubPanelCenter subPanelCenter) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnNachosSupreme = new RoundedButtonProduct("mx-nachos-supreme", UIStyle.P1,subPanelRight.getShoppingCart());
-        btnNachosWithCheese = new RoundedButtonProduct("mx-nachos-cheese", UIStyle.P3,subPanelRight.getShoppingCart());
-        btnHotPretzel = new RoundedButtonProduct("mx-hot-pretzel", UIStyle.P7,subPanelRight.getShoppingCart());
-        btnCheeseQuesadilla = new RoundedButtonProduct("mx-quesadilla-cheese", UIStyle.P4,subPanelRight.getShoppingCart());
-        btnBltQuesadilla = new RoundedButtonProduct("mx-quesadilla-blt", UIStyle.P2,subPanelRight.getShoppingCart());
-        btnBuildYourOwn = new RoundedButtonProduct("mx-quesadilla-build", UIStyle.P6,subPanelRight.getShoppingCart());
+        btnNachosSupreme = new RoundedButtonProduct("mx-nachos-supreme", UIStyle.P1);
+        btnNachosWithCheese = new RoundedButtonProduct("mx-nachos-cheese", UIStyle.P3);
+        btnHotPretzel = new RoundedButtonProduct("mx-hot-pretzel", UIStyle.P7);
+        btnCheeseQuesadilla = new RoundedButtonProduct("mx-quesadilla-cheese", UIStyle.P4);
+        btnBltQuesadilla = new RoundedButtonProduct("mx-quesadilla-blt", UIStyle.P2);
+        btnBuildYourOwn = new RoundedButtonProduct("mx-quesadilla-build", UIStyle.P6);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -28,27 +27,27 @@ public class PizzasPanel extends JPanel {
     private RoundedButtonProduct btnHaysticks;
     private RoundedButtonProduct btnHaysticksWithCheese;
 
-    public PizzasPanel(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    public PizzasPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        initComponents(subPanelCenter, subPanelRight);
+        initComponents(subPanelCenter);
         setVisible(true);
     }
 
-    private void initComponents(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    private void initComponents(SubPanelCenter subPanelCenter) {
 
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnPepperoni = new RoundedButtonProduct("pz-pepperoni", UIStyle.P2,subPanelRight.getShoppingCart());
-        btnSupreme = new RoundedButtonProduct("pz-supreme", UIStyle.P3,subPanelRight.getShoppingCart());
-        btnHawaiian = new RoundedButtonProduct("pz-hawaiian", UIStyle.P4,subPanelRight.getShoppingCart());
-        btnRanch = new RoundedButtonProduct("pz-ranch", UIStyle.P9,subPanelRight.getShoppingCart());
-        btnBbq = new RoundedButtonProduct("pz-bbq", UIStyle.P8,subPanelRight.getShoppingCart());
+        btnPepperoni = new RoundedButtonProduct("pz-pepperoni", UIStyle.P2);
+        btnSupreme = new RoundedButtonProduct("pz-supreme", UIStyle.P3);
+        btnHawaiian = new RoundedButtonProduct("pz-hawaiian", UIStyle.P4);
+        btnRanch = new RoundedButtonProduct("pz-ranch", UIStyle.P9);
+        btnBbq = new RoundedButtonProduct("pz-bbq", UIStyle.P8);
         btnRanch.setForeground(UIStyle.TEXT_DARK);
-        btnMeatLovers = new RoundedButtonProduct("pz-meatlovers", UIStyle.P9,subPanelRight.getShoppingCart());
-        btnBlt = new RoundedButtonProduct("pz-blt", UIStyle.P5,subPanelRight.getShoppingCart());
-        btnJalapenoPopper = new RoundedButtonProduct("pz-jalapeno", UIStyle.P7,subPanelRight.getShoppingCart());
-        btnHaysticks = new RoundedButtonProduct("pz-haysticks", UIStyle.P6,subPanelRight.getShoppingCart());
-        btnHaysticksWithCheese = new RoundedButtonProduct("pz-haysticks-cheese", UIStyle.P4,subPanelRight.getShoppingCart());
+        btnMeatLovers = new RoundedButtonProduct("pz-meatlovers", UIStyle.P9);
+        btnBlt = new RoundedButtonProduct("pz-blt", UIStyle.P5);
+        btnJalapenoPopper = new RoundedButtonProduct("pz-jalapeno", UIStyle.P7);
+        btnHaysticks = new RoundedButtonProduct("pz-haysticks", UIStyle.P6);
+        btnHaysticksWithCheese = new RoundedButtonProduct("pz-haysticks-cheese", UIStyle.P4);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
-import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -20,29 +19,29 @@ public class BeveragesPanel extends JPanel{
             btnHitLulo, btnHitMango, btnHinduLimon, btnHinduDurazno,
             btnMrTeaLimon, btnClubColombia, btnHeineken, btnStellaArtois;
 
-    public BeveragesPanel(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    public BeveragesPanel(SubPanelCenter subPanelCenter) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        initComponents(subPanelCenter, subPanelRight);
+        initComponents(subPanelCenter);
         setVisible(true);
     }
 
-    private void initComponents(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
+    private void initComponents(SubPanelCenter subPanelCenter) {
 
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
 
-        btnColombiana = new RoundedButtonProduct("Bv-colombiana", UIStyle.P2,subPanelRight.getShoppingCart());
-        btnManzanaPostobon = new RoundedButtonProduct("Bv-manzana-postobon", UIStyle.P3,subPanelRight.getShoppingCart());
-        btnCocaCola = new RoundedButtonProduct("Bv-coca-cola", UIStyle.P4,subPanelRight.getShoppingCart());
-        btn7up = new RoundedButtonProduct("Bv-7up", UIStyle.P5,subPanelRight.getShoppingCart());
-        btnHitLulo = new RoundedButtonProduct("Bv-hit-lulo", UIStyle.P6,subPanelRight.getShoppingCart());
-        btnHitMango = new RoundedButtonProduct("Bv-hit-mango", UIStyle.P7,subPanelRight.getShoppingCart());
-        btnHinduLimon = new RoundedButtonProduct("Bv-hindu-te-limon", UIStyle.P8,subPanelRight.getShoppingCart());
-        btnHinduDurazno = new RoundedButtonProduct("Bv-hindu-te-durazno", UIStyle.P9,subPanelRight.getShoppingCart());
-        btnMrTeaLimon = new RoundedButtonProduct("Bv-limon-mr-tea", UIStyle.P4,subPanelRight.getShoppingCart());
-        btnClubColombia = new RoundedButtonProduct("Bv-dorada-colombia-club", UIStyle.P3,subPanelRight.getShoppingCart());
-        btnHeineken = new RoundedButtonProduct("Bv-heineken", UIStyle.P2,subPanelRight.getShoppingCart());
-        btnStellaArtois = new RoundedButtonProduct("Bv-stella-artois", UIStyle.P9,subPanelRight.getShoppingCart());
+        btnColombiana = new RoundedButtonProduct("Bv-colombiana", UIStyle.P2);
+        btnManzanaPostobon = new RoundedButtonProduct("Bv-manzana-postobon", UIStyle.P3);
+        btnCocaCola = new RoundedButtonProduct("Bv-coca-cola", UIStyle.P4);
+        btn7up = new RoundedButtonProduct("Bv-7up", UIStyle.P5);
+        btnHitLulo = new RoundedButtonProduct("Bv-hit-lulo", UIStyle.P6);
+        btnHitMango = new RoundedButtonProduct("Bv-hit-mango", UIStyle.P7);
+        btnHinduLimon = new RoundedButtonProduct("Bv-hindu-te-limon", UIStyle.P8);
+        btnHinduDurazno = new RoundedButtonProduct("Bv-hindu-te-durazno", UIStyle.P9);
+        btnMrTeaLimon = new RoundedButtonProduct("Bv-limon-mr-tea", UIStyle.P4);
+        btnClubColombia = new RoundedButtonProduct("Bv-dorada-colombia-club", UIStyle.P3);
+        btnHeineken = new RoundedButtonProduct("Bv-heineken", UIStyle.P2);
+        btnStellaArtois = new RoundedButtonProduct("Bv-stella-artois", UIStyle.P9);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

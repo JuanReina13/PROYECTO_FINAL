@@ -12,10 +12,14 @@ import co.edu.uptc.model.Order;
 import co.edu.uptc.model.Product;
 import co.edu.uptc.view.stations.OrderCardPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import co.edu.uptc.view.stations.OrdersPanel;
 =======
 import co.edu.uptc.view.stations.RecordPanel;
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+import co.edu.uptc.view.stations.RecordPanel;
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
 import co.edu.uptc.view.stations.ViewStation;
 import java.net.Socket;
 import java.time.LocalTime;
@@ -76,6 +80,7 @@ public class ControllerStation {
                                         }
                                         OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 order.getTime(), productStrings, true, this);
                                         viewStation.getOrdersPanel().addOrderCard(card);
 =======
@@ -83,6 +88,11 @@ public class ControllerStation {
                                                         LocalTime.now().getMinute()),
                                                 productStrings, true);
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+                                                String.format("%02d:%02d", LocalTime.now().getHour(),
+                                                        LocalTime.now().getMinute()),
+                                                productStrings, true);
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
                                     }
                                 });
                                 break;
@@ -197,6 +207,7 @@ public class ControllerStation {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<OrderViewData> getOrdersViewData() {
         if (orderList == null) {
             return new ArrayList<>();
@@ -231,6 +242,8 @@ public class ControllerStation {
 
 =======
 >>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
+=======
+>>>>>>> parent of 52a5bc1 (Final ShoppingCart)
     public void stop() {
         try {
             running = false;
