@@ -47,7 +47,6 @@ public class InfoPanel extends JPanel {
         openButton.setBackground(UIStyle.SECONDARY_COLOR);
         add(openButton);
 
-
         add(Box.createHorizontalStrut(50));
         recordButton = createButton("Historial", new Dimension(150, 50));
         recordButtonAction();
@@ -93,7 +92,7 @@ public class InfoPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setActiveButton(openButton, recordButton);
-                viewStation.setDownPanel(new OrdersPanel(controllerStation));
+                controllerStation.requestOrders();
             }
         });
     }

@@ -112,18 +112,16 @@ public class RestaurantManager {
         try {
             DataOutputStream output = station.getClientOutput();
             if (output != null) {
+                String orderJson = gson.toJson(order);
+
                 output.writeUTF("ORDER_FINISHED");
-                output.writeUTF(order.getIdOrder());
+                output.writeUTF(orderJson);
                 output.flush();
+                System.out.println("✅ Notificación enviada a " + station.getName() + ": " + order.getIdOrder());
             }
         } catch (IOException e) {
-            System.out.println("⚠️ Error notificando finalización a " + station.getName() + ": " + e.getMessage());
+            System.out.println("⚠️ Error notificando a " + station.getName() + ": " + e.getMessage());
         }
-
-    }
-
-    public String getOrdersJson() {
-        return gson.toJson(orderQueue);
     }
 
     public String getRecordsJson() {
@@ -190,14 +188,11 @@ public class RestaurantManager {
             for (ProductCategory category : o.getCategoriesInvolved()) {
                 if (station.getAssignedCategories().contains(category)) {
                     filtered.add(o);
-                    break; 
+                    break;
                 }
             }
         }
         return filtered;
     }
 
-    public String getActiveOrdersJsonFor(Station station) {
-        return gson.toJson(getActiveOrdersForStation(station));
-    }
 }

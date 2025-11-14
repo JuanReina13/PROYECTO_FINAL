@@ -3,18 +3,22 @@ package co.edu.uptc.controller;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
 import co.edu.uptc.model.Product;
 import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.stations.OrderCardPanel;
+import co.edu.uptc.view.stations.OrdersPanel;
 import co.edu.uptc.view.stations.ViewStation;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
@@ -34,7 +38,7 @@ public class ControllerStation {
 
     public ControllerStation(String stationName) {
         this.stationName = stationName;
-        orderList = new ArrayList<>();
+        orderList = new CopyOnWriteArrayList<>();
         orderHistory = new ArrayList<>();
         gson = new Gson();
     }
@@ -74,10 +78,14 @@ public class ControllerStation {
                                 break;
 
                             case "ORDER_FINISHED":
-                                String finishedOrderJson = input.readUTF();
-                                Order finishedOrder = gson.fromJson(finishedOrderJson, Order.class);
-                                orderList.removeIf(o -> o.getIdOrder().equals(finishedOrder.getIdOrder()));
-                                viewStation.getInfoPanel().removeOrderCount();
+                                String finishedOrderId = input.readUTF();
+                                orderList.removeIf(o -> o.getIdOrder().equals(finishedOrderId));
+                                SwingUtilities.invokeLater(() -> {
+                                    if (viewStation != null) {
+                                        viewStation.getInfoPanel().removeOrderCount();
+                                    }
+                                });
+                                System.out.println("✅ Orden finalizada: " + finishedOrderId);
                                 break;
 
                             case "ORDERS":
@@ -85,15 +93,33 @@ public class ControllerStation {
                                 Order[] activeOrders = gson.fromJson(ordersJson, Order[].class);
                                 orderList.clear();
                                 orderList.addAll(Arrays.asList(activeOrders));
+
                                 SwingUtilities.invokeLater(() -> {
                                     if (viewStation != null) {
-                                        viewStation.showOrdersPanel();
+                                        viewStation.setDownPanel(new OrdersPanel(this));
                                     }
                                 });
                                 break;
 
                             case "HISTORY":
                                 String historyJson = input.readUTF();
+                                if (historyJson != null && historyJson.startsWith("[")) {
+
+                                    // Solo si el texto empieza con '[', intentamos convertirlo en lista
+                                    Type tipoLista = new TypeToken<ArrayList<Order>>() {
+                                    }.getType(); // Asegúrate de usar tu clase correcta
+                                    List<Order> ordenes = gson.fromJson(historyJson, tipoLista);
+
+                                    // ... haz lo que tengas que hacer con tu lista de órdenes
+
+                                } else {
+                                    // Si no empieza con '[', es un string o un error.
+                                    // No intentes convertirlo en lista.
+                                    System.err.println(
+                                            "Se recibió una respuesta inesperada del servidor: " + historyJson);
+                                    // Aquí puedes, por ejemplo, vaciar la lista actual o mostrar un mensaje al
+                                    // usuario.
+                                }
                                 Order[] orders = gson.fromJson(historyJson, Order[].class);
                                 orderHistory.clear();
                                 orderHistory.addAll(Arrays.asList(orders));
@@ -114,6 +140,8 @@ public class ControllerStation {
                     }
                 } catch (Exception e) {
                     System.out.println("Conexión cerrada para " + stationName);
+                    System.out.println("   Mensaje: " + e.getMessage());
+                    e.printStackTrace();
                 }
             }).start();
 

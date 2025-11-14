@@ -29,31 +29,39 @@ public class ClientsThread extends Thread {
         try {
             dataOutput = new DataOutputStream(socket.getOutputStream());
             dataInput = new DataInputStream(socket.getInputStream());
-            System.out.println("Cliente conectado: " + socket.getInetAddress());
+            System.out.println("✅ Cliente conectado: " + socket.getInetAddress());
 
             boolean running = true;
 
             while (running) {
                 String command = dataInput.readUTF();
+                System.out.println("📩 Comando recibido: " + command);
 
                 switch (command) {
                     case "NEW_ORDER":
                         String orderJson = dataInput.readUTF();
+                        System.out.println("📦 JSON recibido: " + orderJson);
                         Order order = gson.fromJson(orderJson, Order.class);
                         restaurantManager.addOrder(order);
-                        dataOutput.flush();
+                        System.out.println("✅ Orden agregada: " + order.getIdOrder());
                         break;
 
                     case "GET_ORDERS":
                         String stationName2 = dataInput.readUTF();
                         Station station2 = restaurantManager.findStationByName(stationName2);
+
+                        List<Order> activeOrders = restaurantManager.getActiveOrdersForStation(station2);
+                        String ordersJson = gson.toJson(activeOrders); // ✅ Serializar aquí
+
                         dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(gson.toJson(restaurantManager.getActiveOrdersJsonFor(station2)));
+                        dataOutput.writeUTF(ordersJson);
                         dataOutput.flush();
+                        System.out.println("✅ Enviadas " + activeOrders.size() + " órdenes a " + stationName2);
                         break;
 
                     case "GET_HISTORY":
-                        String historyJson = restaurantManager.getRecordsJson();
+                        String historyJson = gson.toJson(restaurantManager.getRecordsJson());
+
                         dataOutput.writeUTF("HISTORY");
                         dataOutput.writeUTF(historyJson);
                         dataOutput.flush();
@@ -63,37 +71,46 @@ public class ClientsThread extends Thread {
                         String finishOrderJson = dataInput.readUTF();
                         Order finishOrder = gson.fromJson(finishOrderJson, Order.class);
                         restaurantManager.finishOrder(finishOrder);
-                        dataOutput.flush();
+                        System.out.println("✅ Orden finalizada: " + finishOrder.getIdOrder());
                         break;
 
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        station.setClientOutput(dataOutput);
 
-                        dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(gson.toJson(restaurantManager.getActiveOrdersJsonFor(station)));
-                        dataOutput.flush();
+                        if (station != null) {
+                            station.setClientOutput(dataOutput);
 
-                        System.out.println("Estación registrada: " + stationName);
+                            List<Order> initialOrders = restaurantManager.getActiveOrdersForStation(station);
+                            String initialJson = gson.toJson(initialOrders);
+
+                            dataOutput.writeUTF("ORDERS");
+                            dataOutput.writeUTF(initialJson);
+                            dataOutput.flush();
+                            System.out.println("✅ Estación registrada: " + stationName + " con " + initialOrders.size()
+                                    + " órdenes");
+                        } else {
+                            System.out.println("⚠️ Estación no encontrada: " + stationName);
+                        }
                         break;
 
                     case "EXIT":
                         running = false;
+                        System.out.println("👋 Cliente solicita desconexión");
                         break;
 
                     default:
-                        dataOutput.writeUTF("Comando no reconocido");
+                        System.out.println("⚠️ Comando desconocido: " + command);
+                        break;
                 }
             }
 
             socket.close();
-            dataOutput.close();
-            dataInput.close();
-            System.out.println("Cliente desconectado: " + socket.getInetAddress());
+            System.out.println("🔌 Cliente desconectado: " + socket.getInetAddress());
 
         } catch (Exception e) {
-            System.out.println("Error en hilo cliente: " + e.getMessage());
+            System.out.println("❌ Error en hilo cliente: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
