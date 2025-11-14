@@ -90,8 +90,7 @@ public class OrderCardPanel extends RoundedPanelUI {
 
         JButton btnConfirm = addButton("resources/buttons_Images/Check.png", 55, 55);
         JButton btnCancel = addButton("resources/buttons_Images/Cancel.png", 55, 55);
-
-        // Acción: confirmar orden
+    
         btnConfirm.addActionListener(e -> {
             controllerStation.sendFinishOrderById(orderId);
             restoreHeader(headerPanel, table, time, color);
@@ -134,7 +133,6 @@ public class OrderCardPanel extends RoundedPanelUI {
         button.setPreferredSize(new Dimension(width, height));
         button.setMaximumSize(new Dimension(width, height));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        // button.setUI(new ShapedButtonUI());
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);

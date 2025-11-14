@@ -10,12 +10,14 @@ import co.edu.uptc.model.Order;
 import co.edu.uptc.model.Product;
 import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.stations.OrderCardPanel;
+import co.edu.uptc.view.stations.OrdersPanel;
 import co.edu.uptc.view.stations.ViewStation;
 
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
@@ -35,8 +37,8 @@ public class ControllerStation {
 
     public ControllerStation(String stationName) {
         this.stationName = stationName;
-        orderList = new ArrayList<>();
-        orderHistory = new ArrayList<>();
+        orderList = new CopyOnWriteArrayList<>();
+        orderHistory = new CopyOnWriteArrayList<>();
         gson = new Gson();
     }
 
@@ -82,15 +84,32 @@ public class ControllerStation {
 
                                 break;
 
+                            // case "ORDERS":
+                            //     String ordersJSon = input.readUTF();
+                            //     Order[] activeOrders = gson.fromJson(ordersJSon, Order[].class);
+                            //     orderList.clear();
+                            //     orderList.addAll(Arrays.asList(activeOrders));
+                            //     System.out.println("Ordenes recibidas: " + orderList.size() + " órdenes");
+                            //     SwingUtilities.invokeLater(() -> {
+                            //         if (viewStation != null) {
+                            //             viewStation.showOrdersPanel();
+                            //         }
+                            //     });
+                            //     break;
+
                             case "ORDERS":
                                 String ordersJSon = input.readUTF();
                                 Order[] activeOrders = gson.fromJson(ordersJSon, Order[].class);
                                 orderList.clear();
                                 orderList.addAll(Arrays.asList(activeOrders));
                                 System.out.println("Ordenes recibidas: " + orderList.size() + " órdenes");
+
                                 SwingUtilities.invokeLater(() -> {
                                     if (viewStation != null) {
-                                        viewStation.getOrdersPanel().loadOrders(orderList);
+                                        OrdersPanel panel = viewStation.getOrdersPanel();
+                                        if (panel != null) {
+                                            panel.refreshOrders();
+                                        }
                                         viewStation.showOrdersPanel();
                                     }
                                 });
@@ -120,6 +139,8 @@ public class ControllerStation {
                     System.out.println("Conexión cerrada para " + stationName);
                 }
             }).start();
+
+            requestOrders();
 
         } catch (Exception e) {
             System.out.println("Error al conectar estación: " + e.getMessage());
@@ -164,6 +185,22 @@ public class ControllerStation {
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());
         }
+    }
+
+    public List<OrderViewData> getOrdersViewData() {
+        if (orderList == null) {
+            return new ArrayList<>();
+        }
+
+        return orderList.stream()
+                .map(order -> new OrderViewData(
+                        order.getIdOrder(),
+                        order.getTable(),
+                        order.getTime(),
+                        order.getProducts().stream()
+                                .map(p -> p.getQuantity() + "x " + p.getName())
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
     }
 
     public List<OrderViewData> getOrderHistoryViewData() {

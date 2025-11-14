@@ -2,9 +2,6 @@ package co.edu.uptc.view.stations;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +88,6 @@ public class RecordPanel extends JPanel {
                     controllerStation);
             orderCards.add(card);
         }
-
         return orderCards;
     }
 }

@@ -45,13 +45,16 @@ public class ClientsThread extends Thread {
                         break;
 
                     case "GET_ORDERS":
-                        String stationName2 = dataInput.readUTF();
-                        Station requestingStation = restaurantManager.findStationByName(stationName2);
-                        List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
+                        // String stationName2 = dataInput.readUTF();
+                        // Station requestingStation = restaurantManager.findStationByName(stationName2);
+                        // List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
+                        // dataOutput.writeUTF("ORDERS");
+                        // dataOutput.writeUTF(gson.toJson(filteredOrders));
+                        String ordersJson = restaurantManager.getOrdersJson();
                         dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(gson.toJson(filteredOrders));
+                        dataOutput.writeUTF(ordersJson);
                         break;
-
+ 
                     case "GET_HISTORY":
                         String historyJson = restaurantManager.getRecordsJson();
                         dataOutput.writeUTF("HISTORY");
@@ -69,13 +72,7 @@ public class ClientsThread extends Thread {
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        if (station != null) {
-                            station.setClientOutput(dataOutput);
                             System.out.println("Estación registrada: " + stationName);
-                        } else {
-                            System.out.println("Estación no encontrada: " + stationName);
-                        }
-                    
                         break;
 
                     case "EXIT":

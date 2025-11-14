@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -14,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import co.edu.uptc.controller.ControllerStation;
-import co.edu.uptc.model.Order;
+import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.components.ScrollBarUI;
 import co.edu.uptc.view.styleConstans.UIStyle;
 
@@ -40,7 +39,6 @@ public class OrdersPanel extends JPanel {
         ordersContainer.setBackground(UIStyle.TEXT_COLOR);
         ordersContainer.setBorder(new EmptyBorder(15, 15, 15, 15));
         addJScrollPane();
-        showOrders();
     }
 
     private void addJScrollPane() {
@@ -81,22 +79,25 @@ public class OrdersPanel extends JPanel {
         ordersContainer.repaint();
     }
 
-    public void loadOrders(List<Order> orders) {
-        orderCards.clear();
-        for (Order o : orders) {
-            List<String> items = o.getProducts().stream()
-                    .map(p -> p.getQuantity() + "x " + p.getName())
-                    .collect(Collectors.toList());
+    private List<OrderCardPanel> convertToOrderCards() {
+        List<OrderCardPanel> orderCards = new ArrayList<>();
+        List<OrderViewData> orders = controllerStation.getOrdersViewData();
 
+        for (OrderViewData data : orders) {
             OrderCardPanel card = new OrderCardPanel(
-                    o.getIdOrder(),
-                    o.getTable(),
-                    o.getTime(),
-                    items,
+                    data.idOrder(),
+                    data.table(),
+                    data.time(),
+                    data.products(),
                     true,
                     controllerStation);
             orderCards.add(card);
         }
-        showOrders();
+        return orderCards;
+    }
+
+    public void refreshOrders() {
+        this.orderCards = convertToOrderCards(); 
+        showOrders(); 
     }
 }
