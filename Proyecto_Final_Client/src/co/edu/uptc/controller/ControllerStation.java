@@ -11,7 +11,6 @@ import co.edu.uptc.model.Product;
 import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.stations.OrderCardPanel;
 import co.edu.uptc.view.stations.ViewStation;
-
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +47,7 @@ public class ControllerStation {
 
             output.writeUTF("REGISTER_STATION");
             output.writeUTF(stationName);
+            output.flush();
 
             running = true;
             new Thread(() -> {
@@ -68,7 +68,6 @@ public class ControllerStation {
                                         }
                                         OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
                                                 order.getTime(), productStrings, true, this);
-                                        viewStation.getInfoPanel().addOrderCount();
                                         viewStation.getOrdersPanel().addOrderCard(card);
                                     }
                                 });
@@ -79,18 +78,15 @@ public class ControllerStation {
                                 Order finishedOrder = gson.fromJson(finishedOrderJson, Order.class);
                                 orderList.removeIf(o -> o.getIdOrder().equals(finishedOrder.getIdOrder()));
                                 viewStation.getInfoPanel().removeOrderCount();
-
                                 break;
 
                             case "ORDERS":
-                                String ordersJSon = input.readUTF();
-                                Order[] activeOrders = gson.fromJson(ordersJSon, Order[].class);
+                                String ordersJson = input.readUTF();
+                                Order[] activeOrders = gson.fromJson(ordersJson, Order[].class);
                                 orderList.clear();
                                 orderList.addAll(Arrays.asList(activeOrders));
-                                System.out.println("Ordenes recibidas: " + orderList.size() + " órdenes");
                                 SwingUtilities.invokeLater(() -> {
                                     if (viewStation != null) {
-                                        viewStation.getOrdersPanel().loadOrders(orderList);
                                         viewStation.showOrdersPanel();
                                     }
                                 });
@@ -131,39 +127,51 @@ public class ControllerStation {
             output.writeUTF("FINISH_ORDER");
             output.writeUTF(gson.toJson(order));
             output.flush();
-            System.out.println("✅ Solicitud de finalización enviada: " + order.getIdOrder());
+            System.out.println("Solicitud de finalización enviada: " + order.getIdOrder());
         } catch (IOException e) {
             System.out.println("Error al enviar FINISH_ORDER: " + e.getMessage());
         }
     }
 
     public void sendFinishOrderById(String orderId) {
-        for (Order order : orderList) {
-            if (order.getIdOrder().equals(orderId)) {
-                sendFinishOrder(order);
-                orderList.remove(order);
-                break;
-            }
+        orderList.stream()
+                .filter(o -> o.getIdOrder().equals(orderId))
+                .findFirst().ifPresent(this::sendFinishOrder);
+    }
+
+    public void requestOrders() {
+        try {
+            output.writeUTF("GET_ORDERS");
+            output.writeUTF(stationName);
+            output.flush();
+        } catch (IOException e) {
+            System.out.println("Error al solicitar las órdenes: " + e.getMessage());
         }
     }
 
     public void requestHistory() {
         try {
             output.writeUTF("GET_HISTORY");
-            output.writeUTF(stationName);
             output.flush();
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());
         }
     }
 
-    public void requestOrders() {
-        try {
-            output.writeUTF("GET_ORDERS");
-            output.flush();
-        } catch (IOException e) {
-            System.out.println("Error al solicitar el historial: " + e.getMessage());
+    public List<OrderViewData> getOrdersViewData() {
+        if (orderList == null) {
+            return new ArrayList<>();
         }
+
+        return orderList.stream()
+                .map(order -> new OrderViewData(
+                        order.getIdOrder(),
+                        order.getTable(),
+                        order.getTime(),
+                        order.getProducts().stream()
+                                .map(p -> p.getQuantity() + "x " + p.getName())
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
     }
 
     public List<OrderViewData> getOrderHistoryViewData() {

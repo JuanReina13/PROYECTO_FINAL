@@ -41,15 +41,15 @@ public class ClientsThread extends Thread {
                         String orderJson = dataInput.readUTF();
                         Order order = gson.fromJson(orderJson, Order.class);
                         restaurantManager.addOrder(order);
-
+                        dataOutput.flush();
                         break;
 
                     case "GET_ORDERS":
                         String stationName2 = dataInput.readUTF();
-                        Station requestingStation = restaurantManager.findStationByName(stationName2);
-                        List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
+                        Station station2 = restaurantManager.findStationByName(stationName2);
                         dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(gson.toJson(filteredOrders));
+                        dataOutput.writeUTF(gson.toJson(restaurantManager.getActiveOrdersJsonFor(station2)));
+                        dataOutput.flush();
                         break;
 
                     case "GET_HISTORY":
@@ -63,19 +63,19 @@ public class ClientsThread extends Thread {
                         String finishOrderJson = dataInput.readUTF();
                         Order finishOrder = gson.fromJson(finishOrderJson, Order.class);
                         restaurantManager.finishOrder(finishOrder);
-
+                        dataOutput.flush();
                         break;
 
                     case "REGISTER_STATION":
                         String stationName = dataInput.readUTF();
                         Station station = restaurantManager.findStationByName(stationName);
-                        if (station != null) {
-                            station.setClientOutput(dataOutput);
-                            System.out.println("Estación registrada: " + stationName);
-                        } else {
-                            System.out.println("Estación no encontrada: " + stationName);
-                        }
-                    
+                        station.setClientOutput(dataOutput);
+
+                        dataOutput.writeUTF("ORDERS");
+                        dataOutput.writeUTF(gson.toJson(restaurantManager.getActiveOrdersJsonFor(station)));
+                        dataOutput.flush();
+
+                        System.out.println("Estación registrada: " + stationName);
                         break;
 
                     case "EXIT":

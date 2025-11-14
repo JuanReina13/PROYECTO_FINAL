@@ -11,7 +11,6 @@ public class Order {
     private String time;
     private boolean isReady;
     private List<String> categoriesInvolved;
-    private List<String> categories;
 
     public Order(String table, List<Product> products, String time) {
         this.idOrder = UUID.randomUUID().toString();;
@@ -61,14 +60,6 @@ public class Order {
 
     public void setReady(boolean isReady) {
         this.isReady = isReady;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
     }
 
     public List<String> getCategoriesInvolved() {

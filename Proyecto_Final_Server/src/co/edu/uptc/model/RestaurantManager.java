@@ -190,15 +190,14 @@ public class RestaurantManager {
             for (ProductCategory category : o.getCategoriesInvolved()) {
                 if (station.getAssignedCategories().contains(category)) {
                     filtered.add(o);
-                    break;
+                    break; 
                 }
             }
         }
-
         return filtered;
     }
 
-    public List<Station> getStations() {
-        return stations;
+    public String getActiveOrdersJsonFor(Station station) {
+        return gson.toJson(getActiveOrdersForStation(station));
     }
 }

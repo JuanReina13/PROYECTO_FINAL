@@ -22,7 +22,6 @@ public class ViewStation extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.stationName = stationName;
         this.controllerStation = controllerStation;
-        controllerStation.start();
         setBackground(UIStyle.BACKGROUND);
         setSize(800, 600);
         initComponents();
@@ -48,7 +47,7 @@ public class ViewStation extends JPanel {
         });
     }
 
-    public void showOrdersPanel() {
+    public void showOrdersPanel(){
         setDownPanel(ordersPanel);
     }
 

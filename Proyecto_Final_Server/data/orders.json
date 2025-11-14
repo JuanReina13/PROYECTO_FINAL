@@ -31,27 +31,34 @@
     ]
   },
   {
-    "idOrder": "b067386f-4dc4-47eb-9e2f-cf90619d6275",
-    "table": "Niles",
+    "idOrder": "251110-936",
+    "table": "Paw Paw",
     "products": [
       {
-        "name": "Cobb Salad",
-        "category": "SALAD",
-        "price": 10.99,
+        "name": "Pepperoni Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
         "quantity": 1
       },
       {
-        "name": "Hayloft Burguer with cheese",
-        "category": "HAMBURGER",
-        "price": 11.49,
+        "name": "Caesar Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "Detroit dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
         "quantity": 2
       }
     ],
     "isReady": false,
-    "time": "1762799825231",
+    "time": "1762800501054",
     "categoriesInvolved": [
+      "PIZZA",
       "SALAD",
-      "HAMBURGER"
+      "HOT_DOG"
     ]
   }
 ]

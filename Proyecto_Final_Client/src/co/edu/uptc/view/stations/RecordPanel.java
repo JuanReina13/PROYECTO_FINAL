@@ -85,7 +85,7 @@ public class RecordPanel extends JPanel {
             OrderCardPanel card = new OrderCardPanel(
                     data.idOrder(),
                     data.table(),
-                    data.time(),
+                    formatTime(data.time()),
                     data.products(),
                     false,
                     controllerStation);
@@ -93,5 +93,11 @@ public class RecordPanel extends JPanel {
         }
 
         return orderCards;
+    }
+
+    private String formatTime(String timestamp) {
+        Instant instant = Instant.ofEpochMilli(Long.parseLong(timestamp));
+        LocalTime time = instant.atZone(ZoneId.systemDefault()).toLocalTime();
+        return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }
 }
