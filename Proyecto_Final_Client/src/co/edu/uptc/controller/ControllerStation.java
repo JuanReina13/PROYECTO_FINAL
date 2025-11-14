@@ -171,7 +171,6 @@ public class ControllerStation {
     public void requestHistory() {
         try {
             output.writeUTF("GET_HISTORY");
-            output.writeUTF(stationName);
             output.flush();
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());
@@ -181,6 +180,7 @@ public class ControllerStation {
     public void requestOrders() {
         try {
             output.writeUTF("GET_ORDERS");
+            output.writeUTF(stationName);
             output.flush();
         } catch (IOException e) {
             System.out.println("Error al solicitar el historial: " + e.getMessage());

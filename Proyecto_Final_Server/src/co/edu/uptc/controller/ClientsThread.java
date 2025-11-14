@@ -45,14 +45,14 @@ public class ClientsThread extends Thread {
                         break;
 
                     case "GET_ORDERS":
-                        // String stationName2 = dataInput.readUTF();
-                        // Station requestingStation = restaurantManager.findStationByName(stationName2);
-                        // List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
-                        // dataOutput.writeUTF("ORDERS");
-                        // dataOutput.writeUTF(gson.toJson(filteredOrders));
-                        String ordersJson = restaurantManager.getOrdersJson();
+                        String stationName2 = dataInput.readUTF();
+                        Station requestingStation = restaurantManager.findStationByName(stationName2);
+                        List<Order> filteredOrders = restaurantManager.getActiveOrdersForStation(requestingStation);
                         dataOutput.writeUTF("ORDERS");
-                        dataOutput.writeUTF(ordersJson);
+                        dataOutput.writeUTF(gson.toJson(filteredOrders));
+                        // String ordersJson = restaurantManager.getOrdersJson();
+                        // dataOutput.writeUTF("ORDERS");
+                        // dataOutput.writeUTF(ordersJson);
                         break;
  
                     case "GET_HISTORY":
