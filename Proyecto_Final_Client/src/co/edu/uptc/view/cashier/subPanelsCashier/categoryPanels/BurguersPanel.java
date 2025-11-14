@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelCenter;
+import co.edu.uptc.view.cashier.subPanelsCashier.SubPanelRight;
 import co.edu.uptc.view.components.RoundedButtonProduct;
 import co.edu.uptc.view.components.RoundedButtonCardLayout;
 import co.edu.uptc.view.styleConstans.UIStyle;
@@ -24,22 +25,22 @@ public class BurguersPanel extends JPanel {
     private RoundedButtonProduct btnSpicyPepperJackBurger;
     private RoundedButtonProduct btnDoubleBurguer;
 
-    public BurguersPanel(SubPanelCenter subPanelCenter) {
+    public BurguersPanel(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        initComponents(subPanelCenter);
+        initComponents(subPanelCenter, subPanelRight);
         setVisible(true);
     }
 
-    private void initComponents(SubPanelCenter subPanelCenter) {
+    private void initComponents(SubPanelCenter subPanelCenter, SubPanelRight subPanelRight) {
         btnBack = new RoundedButtonCardLayout("VOLVER", UIStyle.ACTION_CANCEL, "buttonCategoryPanel", subPanelCenter);
-        btnHayloftBurger = new RoundedButtonProduct("bg-hayloft-classic", UIStyle.P1);
-        btnHayloftBurgerWithCheese = new RoundedButtonProduct("bg-hayloft-cheese", UIStyle.P4);
-        btnBltBurguer = new RoundedButtonProduct("bg-blt", UIStyle.P5);
-        btnRanchBurger = new RoundedButtonProduct("bg-ranch", UIStyle.P3);
-        btnSwissMushroomsBurger = new RoundedButtonProduct("bg-swiss-mushrooms", UIStyle.P7);
-        btnSpicyPepperJackBurger = new RoundedButtonProduct("bg-spicy-pepperjack", UIStyle.P6);
-        btnDoubleBurguer = new RoundedButtonProduct("bg-double", UIStyle.P1);
+        btnHayloftBurger = new RoundedButtonProduct("bg-hayloft-classic", UIStyle.P1,subPanelRight.getShoppingCart());
+        btnHayloftBurgerWithCheese = new RoundedButtonProduct("bg-hayloft-cheese", UIStyle.P4,subPanelRight.getShoppingCart());
+        btnBltBurguer = new RoundedButtonProduct("bg-blt", UIStyle.P5,subPanelRight.getShoppingCart());
+        btnRanchBurger = new RoundedButtonProduct("bg-ranch", UIStyle.P3,subPanelRight.getShoppingCart());
+        btnSwissMushroomsBurger = new RoundedButtonProduct("bg-swiss-mushrooms", UIStyle.P7,subPanelRight.getShoppingCart());
+        btnSpicyPepperJackBurger = new RoundedButtonProduct("bg-spicy-pepperjack", UIStyle.P6,subPanelRight.getShoppingCart());
+        btnDoubleBurguer = new RoundedButtonProduct("bg-double", UIStyle.P1,subPanelRight.getShoppingCart());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);

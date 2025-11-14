@@ -16,8 +16,8 @@ public class SubMainPanelViewCashierSuperior extends JPanel{
     }
 
     private void initComponents() {
-        SubPanelCenter subPanelCenter = new SubPanelCenter();
         SubPanelRight subPanelRight = new SubPanelRight();
+        SubPanelCenter subPanelCenter = new SubPanelCenter(subPanelRight);
         add(subPanelCenter, BorderLayout.CENTER);
         add(subPanelRight, BorderLayout.EAST);
     }
