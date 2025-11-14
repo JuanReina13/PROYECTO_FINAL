@@ -23,7 +23,7 @@
       }
     ],
     "isReady": false,
-    "time": "1762799825231",
+    "time": 1762799825231,
     "categoriesInvolved": [
       "PIZZA",
       "SALAD",
@@ -54,11 +54,324 @@
       }
     ],
     "isReady": false,
-    "time": "1762800501054",
+    "time": 1762800501054,
     "categoriesInvolved": [
       "PIZZA",
       "SALAD",
       "HOT_DOG"
     ]
+<<<<<<< HEAD
+=======
+  },
+  {
+    "idOrder": "251110-185",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "Pepperoni Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Caesar Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "Detroit dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 1762800611104,
+    "categoriesInvolved": [
+      "PIZZA",
+      "SALAD",
+      "HOT_DOG"
+    ]
+  },
+  {
+    "idOrder": "251110-695",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "bbq chiken gouda onion Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Chef Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "chicago dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 1762800690610,
+    "categoriesInvolved": [
+      "PIZZA",
+      "SALAD",
+      "HOT_DOG"
+    ]
+  },
+  {
+    "idOrder": "251110-6728",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "bbq chiken gouda onion Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Chef Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "chicago dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 1762803249140,
+    "categoriesInvolved": [
+      "PIZZA",
+      "SALAD",
+      "HOT_DOG"
+    ]
+  },
+  {
+    "idOrder": "251110-2045",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "bbq chiken gouda onion Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Chef Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "chicago dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 1762803282373,
+    "categoriesInvolved": [
+      "PIZZA",
+      "SALAD",
+      "HOT_DOG"
+    ]
+  },
+  {
+    "idOrder": "251110-3667",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "bbq chiken gouda onion Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Chef Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "chicago dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 1762803364093,
+    "categoriesInvolved": [
+      "PIZZA",
+      "SALAD",
+      "HOT_DOG"
+    ]
+  },
+  {
+    "idOrder": "251110-986",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "bbq chiken gouda onion Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Chef Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "chicago dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+  },
+  {
+    "idOrder": "251110-9643",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "Hawaian Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "Mediterranean Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "bacon cheese dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+  },
+  {
+    "idOrder": "251110-9050",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "oniichan Pizza",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "cobb Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "classic dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+  },
+  {
+    "idOrder": "251110-6195",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "oniichan Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "cobb Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "classic dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+  },
+  {
+    "idOrder": "251110-1875",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "oniichan Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "cobb Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "classic dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+  },
+  {
+    "idOrder": "251110-6571",
+    "table": "Paw Paw",
+    "products": [
+      {
+        "name": "oniichan Pizza",
+        "category": "PIZZA",
+        "price": 15.99,
+        "quantity": 1
+      },
+      {
+        "name": "cobb Salad",
+        "category": "SALAD",
+        "price": 7.99,
+        "quantity": 1
+      },
+      {
+        "name": "classic dog",
+        "category": "HOT_DOG",
+        "price": 8.49,
+        "quantity": 2
+      }
+    ],
+    "isReady": false,
+    "time": 0
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
   }
 ]

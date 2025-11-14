@@ -10,11 +10,15 @@ import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Order;
 import co.edu.uptc.model.Product;
-import co.edu.uptc.view.components.OrderViewData;
 import co.edu.uptc.view.stations.OrderCardPanel;
+<<<<<<< HEAD
 import co.edu.uptc.view.stations.OrdersPanel;
+=======
+import co.edu.uptc.view.stations.RecordPanel;
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
 import co.edu.uptc.view.stations.ViewStation;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,8 +75,14 @@ public class ControllerStation {
                                             productStrings.add(p.getQuantity() + "x " + p.getName());
                                         }
                                         OrderCardPanel card = new OrderCardPanel(order.getIdOrder(), order.getTable(),
+<<<<<<< HEAD
                                                 order.getTime(), productStrings, true, this);
                                         viewStation.getOrdersPanel().addOrderCard(card);
+=======
+                                                String.format("%02d:%02d", LocalTime.now().getHour(),
+                                                        LocalTime.now().getMinute()),
+                                                productStrings, true);
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
                                     }
                                 });
                                 break;
@@ -186,6 +196,7 @@ public class ControllerStation {
         }
     }
 
+<<<<<<< HEAD
     public List<OrderViewData> getOrdersViewData() {
         if (orderList == null) {
             return new ArrayList<>();
@@ -218,6 +229,8 @@ public class ControllerStation {
                 .collect(Collectors.toList());
     }
 
+=======
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
     public void stop() {
         try {
             running = false;

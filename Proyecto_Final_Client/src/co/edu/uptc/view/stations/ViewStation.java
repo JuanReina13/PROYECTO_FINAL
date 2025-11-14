@@ -15,7 +15,6 @@ public class ViewStation extends JPanel {
     private ControllerStation controllerStation;
     private String stationName;
     private InfoPanel infoPanel;
-    private OrdersPanel ordersPanel;
     private JPanel downPanel;
 
     public ViewStation(String stationName, ControllerStation controllerStation) {
@@ -31,8 +30,7 @@ public class ViewStation extends JPanel {
     private void initComponents() {
         infoPanel = new InfoPanel(stationName, controllerStation, this);
         add(infoPanel);
-        ordersPanel = new OrdersPanel(controllerStation);
-        downPanel = ordersPanel;
+        downPanel = new OrdersPanel(controllerStation);
         add(downPanel);
         SwingUtilities.invokeLater(() -> {
             Window window = SwingUtilities.getWindowAncestor(ViewStation.this);
@@ -66,9 +64,5 @@ public class ViewStation extends JPanel {
 
     public InfoPanel getInfoPanel() {
         return infoPanel;
-    }
-
-    public OrdersPanel getOrdersPanel() {
-        return ordersPanel;
     }
 }

@@ -8,22 +8,19 @@ public class Order {
     private String idOrder;
     private String table;
     private List<Product> products;
+<<<<<<< HEAD
     private String time;
     private boolean isReady;
     private List<String> categoriesInvolved;
+=======
+    private long time;
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
 
-    public Order(String table, List<Product> products, String time) {
+    public Order(String table, List<Product> products, long time) {
         this.idOrder = UUID.randomUUID().toString();;
         this.table = table;
         this.products = products;
         this.time = time;
-    }
-
-    public Order() {
-    }
-
-    public void setIdOrder(String idOrder){
-        this.idOrder = idOrder;
     }
 
     public String getIdOrder() {
@@ -46,13 +43,14 @@ public class Order {
         this.products = products;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
+<<<<<<< HEAD
 
     public boolean isReady() {
         return isReady;
@@ -69,4 +67,6 @@ public class Order {
     public void setCategoriesInvolved(List<String> categoriesInvolved) {
         this.categoriesInvolved = categoriesInvolved;
     }
+=======
+>>>>>>> parent of 3e3b762 (NEW_ORDER and ORDERS_PANEL_UPTADE)
 }
